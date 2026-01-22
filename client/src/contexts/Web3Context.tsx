@@ -1,42 +1,20 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { WagmiProvider, createConfig, http } from 'wagmi';
-import { mainnet, sepolia } from 'wagmi/chains';
 import { metaMask, walletConnect } from '@wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { megaETH, SUPPORTED_CHAINS } from '@/lib/chains';
 
-// MegaETH configuration (using Sepolia as testnet for now)
-// In production, replace with actual MegaETH chain configuration
-const megaethChain = {
-  id: 11155111, // Sepolia testnet ID
-  name: 'MegaETH (Sepolia)',
-  network: 'megaeth-sepolia',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    default: { http: ['https://sepolia.infura.io/v3/YOUR_INFURA_KEY'] },
-    public: { http: ['https://rpc.sepolia.org'] },
-  },
-  blockExplorers: {
-    default: { name: 'Etherscan', url: 'https://sepolia.etherscan.io' },
-  },
-  testnet: true,
-} as const;
-
-// Configure Wagmi
+// Configure Wagmi with MegaETH as primary chain
 const config = createConfig({
-  chains: [mainnet, sepolia],
+  chains: [megaETH, ...SUPPORTED_CHAINS],
   connectors: [
     metaMask(),
     walletConnect({
-      projectId: process.env.REACT_APP_WALLET_CONNECT_PROJECT_ID || 'YOUR_PROJECT_ID',
+      projectId: process.env.VITE_WALLET_CONNECT_PROJECT_ID || 'YOUR_PROJECT_ID',
     }),
   ],
   transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
+    [megaETH.id]: http('https://mainnet.megaeth.com/rpc'),
   },
 });
 
@@ -46,10 +24,15 @@ const queryClient = new QueryClient();
 interface Web3ContextType {
   isConnected: boolean;
   address?: string;
+  chainId?: number;
 }
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
 
+/**
+ * Web3Provider - Wraps app with Wagmi and React Query
+ * Configured for MegaETH mainnet (chainID 4326)
+ */
 export const Web3Provider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <WagmiProvider config={config}>

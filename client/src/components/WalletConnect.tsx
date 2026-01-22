@@ -68,6 +68,11 @@ export const WalletConnect: React.FC = () => {
                 </div>
 
                 <div className="text-sm text-gray-400">
+                  <p className="mb-1">Network</p>
+                  <p className="text-neon-cyan font-semibold">MegaETH (4326)</p>
+                </div>
+
+                <div className="text-sm text-gray-400">
                   <p className="mb-1">Balance</p>
                   <p className="text-neon-green font-semibold">{balance} ETH</p>
                 </div>

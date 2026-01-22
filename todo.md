@@ -1,11 +1,15 @@
 # Megaxolotls - Project TODO
 
-## Phase 1: Web3 Infrastructure (IN PROGRESS)
+## Phase 1: Web3 Infrastructure (COMPLETED)
 - [x] Install and configure Web3Modal + Viem
 - [x] Implement wallet connection (MetaMask, WalletConnect)
 - [x] Create wallet context provider
 - [x] Add wallet connection UI component
-- [ ] Test wallet connection flow
+- [x] Add MegaETH network configuration (chainID 4326)
+- [x] Create chains.ts com MegaETH chain definition
+- [x] Create megaeth.ts com constantes e helpers
+- [x] Update Web3Context com MegaETH como rede principal
+- [x] Update WalletConnect para mostrar MegaETH (4326)
 
 ## Phase 2: Smart Contract Integration (CURRENT)
 - [x] Create example Solidity smart contract (ERC-721 Pet NFT with morph stages)
