@@ -47,6 +47,16 @@
 - [ ] Implement battle history logging
 - [ ] Add wallet address verification
 
+## Phase 4.5: Move Cards System (COMPLETED)
+- [x] Create MoveCard component with design inspirado em card game
+- [x] Implement 4-card grid layout para mock de batalhas
+- [x] Add zoom animation ao passar dedo (mobile) ou hover (desktop)
+- [x] Implementar fullscreen preview de card selecionado
+- [x] Add move data structure (name, type, damage, cost, effects)
+- [x] Create mock moves data para Axolotls
+- [x] Create BattleDemo page com 4 cards de movimentos
+- [x] Add rota /battle-demo no App.tsx
+
 ## Phase 7: Pet Display & Animations (FUTURE)
 - [ ] Create Axolotl display component with animations
 - [ ] Implement pet stats display
