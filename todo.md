@@ -11,7 +11,7 @@
 - [x] Update Web3Context com MegaETH como rede principal
 - [x] Update WalletConnect para mostrar MegaETH (4326)
 
-## Phase 2: Smart Contract Integration (CURRENT)
+## Phase 2: Smart Contract Integration (IN PROGRESS)
 - [x] Create example Solidity smart contract (ERC-721 Pet NFT with morph stages)
 - [x] Support multiple pet species (Axolotl + 3 slots for future species)
 - [x] Implement 3 morph stages for Axolotls (Axolol → Axolump → Axoloot)
@@ -19,6 +19,27 @@
 - [ ] Deploy contract to MegaETH testnet
 - [ ] Implement contract interaction functions (mint, transfer, getBalance)
 - [ ] Add contract read/write examples in tRPC procedures
+
+## Phase 2.5: Network Selector (COMPLETED)
+- [x] Create NetworkSelector component com dropdown de redes
+- [x] Implementar validação de chain ID
+- [x] Add mensagem de aviso se conectado à rede errada
+- [x] Botão para trocar de rede automaticamente no MetaMask
+- [x] Integrar ao WalletConnect menu
+
+## Phase 2.6: Onboarding Page (COMPLETED)
+- [x] Create página /onboarding com instruções
+- [x] Implementar botão "Add MegaETH to MetaMask" (wallet_addEthereumChain)
+- [x] Verificação automática de rede após conexão
+- [x] Redirecionamento para dashboard após setup
+- [x] Design neon temático
+
+## Phase 2.7: NFT Integration (COMPLETED)
+- [x] Ler balance de Axolotls do contrato ERC-721
+- [x] Exibir lista de NFTs possuídos
+- [x] Mostrar metadata de cada Axolotl
+- [x] Link para visualizar no block explorer
+- [x] Integrar ao WalletConnect dropdown
 
 ## Phase 3: Animation System
 - [x] Install Framer Motion

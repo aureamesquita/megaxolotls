@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWallet } from '@/hooks/useWallet';
+import { useAxolotlBalance } from '@/hooks/useAxolotlBalance';
 import { Button } from '@/components/ui/button';
 import { Wallet, LogOut, Copy, Check } from 'lucide-react';
+import { NetworkSelector } from './NetworkSelector';
 
 export const WalletConnect: React.FC = () => {
   const {
@@ -14,6 +16,7 @@ export const WalletConnect: React.FC = () => {
     disconnectWallet,
     balance,
   } = useWallet();
+  const { balance: axolotlBalance } = useAxolotlBalance();
 
   const [copied, setCopied] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -73,8 +76,13 @@ export const WalletConnect: React.FC = () => {
                 </div>
 
                 <div className="text-sm text-gray-400">
-                  <p className="mb-1">Balance</p>
+                  <p className="mb-1">ETH Balance</p>
                   <p className="text-neon-green font-semibold">{balance} ETH</p>
+                </div>
+
+                <div className="text-sm text-gray-400">
+                  <p className="mb-1">Axolotls</p>
+                  <p className="text-neon-cyan font-semibold">{axolotlBalance} NFTs</p>
                 </div>
 
                 <button
