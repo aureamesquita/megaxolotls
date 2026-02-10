@@ -41,7 +41,17 @@
 - [x] Link para visualizar no block explorer
 - [x] Integrar ao WalletConnect dropdown
 
-## Phase 3: Animation System
+## Phase 3: Splash Screen (COMPLETED)
+- [x] Create epic landing page with cyberpunk/neon design
+- [x] Add animated background grid and glow orbs
+- [x] Implement "Connect Wallet" button (Ethereum login)
+- [x] Add "Try Demo" button linking to battle demo
+- [x] Create floating particles animation
+- [x] Add feature cards (Collect, Battle, Web3 Native)
+- [x] Responsive design for mobile/desktop
+- [x] Integrate Web3Provider to main.tsx
+
+## Phase 4: Animation System
 - [x] Install Framer Motion
 - [ ] Create SVG sprite components for Axolotls
 - [ ] Implement idle animation example

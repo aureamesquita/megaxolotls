@@ -6,9 +6,13 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
+import { Web3Provider } from "./contexts/Web3Context";
 import "./index.css";
 
 const queryClient = new QueryClient();
+
+// Note: Web3Provider also creates its own QueryClient for Wagmi
+// This is intentional to keep Web3 and tRPC queries separate
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
@@ -53,9 +57,9 @@ const trpcClient = trpc.createClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <trpc.Provider client={trpcClient} queryClient={queryClient}>
-    <QueryClientProvider client={queryClient}>
+  <Web3Provider>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <App />
-    </QueryClientProvider>
-  </trpc.Provider>
+    </trpc.Provider>
+  </Web3Provider>
 );
