@@ -117,7 +117,35 @@
 - [ ] Create animation state machine
 - [ ] Add gesture animations (hover, click)
 
-## Phase 8: Battle System (FUTURE)
+## Phase 8: Token Balance Integration (NEXT)
+- [ ] Connect useAxolotlBalance hook ao Dashboard
+- [ ] Read LIP token balance do contrato
+- [ ] Read MEGAX token balance do contrato
+- [ ] Display balances em tempo real nos token cards
+- [ ] Add refresh button para atualizar balances
+- [ ] Implementar error handling para falhas de RPC
+
+## Phase 9: Pets Gallery Page (NEXT)
+- [ ] Create Pets page com galeria visual
+- [ ] Display Axolotls possuídos com imagens
+- [ ] Show stats (level, experience, morph stage)
+- [ ] Display rarity e tipo de espécie
+- [ ] Add "Battle" button para cada pet
+- [ ] Add "Evolve" button se elegível
+- [ ] Implementar filtros (rarity, species, level)
+- [ ] Add sorting options (level, rarity, newest)
+
+## Phase 10: Settings Page (NEXT)
+- [ ] Create Settings page com opções de configuração
+- [ ] Sound toggle (on/off)
+- [ ] Notifications toggle
+- [ ] Theme selector (dark/light mode)
+- [ ] Language selector (se aplicável)
+- [ ] Logout button
+- [ ] Account info (wallet address, join date)
+- [ ] Delete account option (com confirmação)
+
+## Phase 11: Battle System (FUTURE)
 - [ ] Create battle system logic (turn-based, in-memory)
 - [ ] Implement battle UI and animations
 - [ ] Create care panel (feeding, training, in-memory)
