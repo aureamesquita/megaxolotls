@@ -3,6 +3,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import BattleDemo from "@/pages/BattleDemo";
 import Onboarding from "@/pages/Onboarding";
+import FirstUse from "@/pages/FirstUse";
+import Tutorial from "@/pages/Tutorial";
+import Dashboard from "@/pages/Dashboard";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -12,6 +15,10 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/first-use" component={FirstUse} />
+      <Route path="/tutorial" component={Tutorial} />
+      <Route path="/home" component={Dashboard} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/battle-demo" component={BattleDemo} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/404" component={NotFound} />

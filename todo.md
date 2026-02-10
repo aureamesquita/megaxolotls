@@ -51,6 +51,22 @@
 - [x] Responsive design for mobile/desktop
 - [x] Integrate Web3Provider to main.tsx
 
+## Phase 3.5: First-Use Flow (COMPLETED)
+- [x] Create FirstUseScreen component (separate from splash)
+- [x] Detect first-use via localStorage (hasSeenFirstUse flag)
+- [x] Create Tutorial Screen com contador de tempo (localStorage)
+- [x] Implement time tracking (minutes/hours played) - PlaytimeTracker global
+- [x] Create Home Screen (Dashboard) com:
+  - [x] Display endereço da carteira conectada
+  - [x] Display rede (MegaETH, Chain ID)
+  - [x] 2 token buttons (LIP e MEGAX) com ícone, count, nome
+  - [x] Estrutura para ler balances dos contratos (futuro)
+  - [x] Menu grid com 9 botões: Pets, Teams, Bag, Stadium, Care, Breed, Shop, Ranking, Changelog
+  - [x] Settings button
+- [x] Create PlaytimeTracker component (global, persistent)
+- [x] Auto-redirect flow: Home → FirstUse → Tutorial → Dashboard
+- [x] Add rotas ao App.tsx
+
 ## Phase 4: Animation System
 - [x] Install Framer Motion
 - [ ] Create SVG sprite components for Axolotls

@@ -5,6 +5,10 @@ import { useLocation } from 'wouter';
 import { Zap, Wallet, Sparkles } from 'lucide-react';
 import { useWallet } from '@/hooks/useWallet';
 
+interface Window {
+  ethereum?: any;
+}
+
 /**
  * Megaxolotls Splash Screen
  * Epic landing page with Web3 login
@@ -15,10 +19,20 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Redirect to dashboard if already connected
+  // Redirect based on connection and first-use status
   useEffect(() => {
     if (isConnected) {
-      setLocation('/dashboard');
+      const hasSeenFirstUse = localStorage.getItem('megaxolotls_first_use');
+      if (!hasSeenFirstUse) {
+        setLocation('/first-use');
+      } else {
+        const tutorialComplete = localStorage.getItem('megaxolotls_tutorial_complete') === 'true';
+        if (!tutorialComplete) {
+          setLocation('/tutorial');
+        } else {
+          setLocation('/dashboard');
+        }
+      }
     }
   }, [isConnected, setLocation]);
 
