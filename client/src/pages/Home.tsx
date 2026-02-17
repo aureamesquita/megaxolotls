@@ -201,14 +201,11 @@ export default function Home() {
           <motion.button
             onClick={connectMetaMask}
             disabled={isConnecting}
-            className="group relative px-8 py-4 font-bold text-lg text-black bg-gradient-to-r from-neon-pink to-neon-cyan rounded-lg overflow-hidden transition-all disabled:opacity-50"
+            className="px-8 py-4 font-bold text-lg text-white bg-gradient-to-r from-neon-pink to-neon-cyan rounded-lg overflow-hidden transition-all disabled:opacity-50 hover:shadow-lg hover:shadow-neon-pink/50"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Animated border */}
-            <div className="absolute inset-0 bg-gradient-to-r from-neon-pink to-neon-cyan opacity-0 group-hover:opacity-100 transition-opacity" />
-
-            <div className="relative flex items-center gap-2 bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent group-hover:text-black transition-colors">
+            <div className="relative flex items-center gap-2">
               <Wallet className="w-5 h-5" />
               {isConnecting ? 'Connecting...' : 'Connect Wallet'}
             </div>
@@ -216,7 +213,7 @@ export default function Home() {
 
           <motion.button
             onClick={() => setLocation('/battle-demo')}
-            className="px-8 py-4 font-bold text-lg text-neon-cyan border-2 border-neon-cyan rounded-lg hover:bg-neon-cyan/10 transition-all"
+            className="px-8 py-4 font-bold text-lg text-black bg-neon-cyan rounded-lg hover:bg-neon-green transition-all hover:shadow-lg hover:shadow-neon-cyan/50"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

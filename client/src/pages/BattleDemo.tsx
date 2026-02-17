@@ -1,16 +1,13 @@
 import React from 'react';
-import { MoveCardGrid } from '@/components/MoveCardGrid';
+import { useLocation } from 'wouter';
+import { ArrowLeft } from 'lucide-react';
+import { BattleArena } from '@/components/BattleArena';
 import { getRandomBattleMoves } from '@/lib/mockMoves';
 import { Move } from '@shared/types';
 
 export default function BattleDemo() {
+  const [, setLocation] = useLocation();
   const [battleMoves] = React.useState<Move[]>(getRandomBattleMoves(4));
-  const [selectedMove, setSelectedMove] = React.useState<Move | null>(null);
-
-  const handleMoveSelect = (move: Move) => {
-    setSelectedMove(move);
-    console.log('Selected move:', move);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white p-4 sm:p-8">
@@ -27,46 +24,25 @@ export default function BattleDemo() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => setLocation('/')}
+          className="mb-8 flex items-center gap-2 px-4 py-2 text-neon-cyan hover:text-neon-pink transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Back to Home
+        </button>
+
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2 bg-gradient-to-r from-neon-pink to-neon-cyan bg-clip-text text-transparent">
             MEGAXOLOTLS
           </h1>
-          <p className="text-gray-400 text-lg">Battle System - Move Selection Demo</p>
+          <p className="text-gray-400 text-lg">Battle System - Turn-Based Combat</p>
         </div>
 
-        {/* Battle info */}
-        <div className="mb-8 p-6 bg-black/40 border border-neon-cyan/30 rounded-lg backdrop-blur">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-gray-400">Your Axolotl</p>
-              <p className="text-neon-cyan font-bold text-lg">Axolol (Level 5)</p>
-            </div>
-            <div>
-              <p className="text-gray-400">Enemy Axolotl</p>
-              <p className="text-neon-pink font-bold text-lg">Axolol (Level 5)</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Move card grid */}
-        <div className="mb-12">
-          <MoveCardGrid
-            moves={battleMoves}
-            onMoveSelect={handleMoveSelect}
-            title="Select Your Move"
-          />
-        </div>
-
-        {/* Instructions */}
-        <div className="p-6 bg-black/40 border border-neon-cyan/30 rounded-lg backdrop-blur text-center">
-          <p className="text-gray-300 mb-3">
-            💡 <strong>Desktop:</strong> Hover over cards to zoom
-          </p>
-          <p className="text-gray-300">
-            📱 <strong>Mobile:</strong> Tap or swipe to zoom and select moves
-          </p>
-        </div>
+        {/* Battle Arena with HP/Energy bars and AI opponent */}
+        <BattleArena availableMoves={battleMoves} />
       </div>
     </div>
   );

@@ -61,6 +61,9 @@ export interface Move {
   description: string;
   learnedAtLevel?: number; // Level when move is learned
   learnedAtMorphStage?: MorphStage; // Morph stage when move is learned
+  damage: number; // Damage dealt by this move
+  energyCost: number; // Energy cost to use this move
+  imageUrl?: string; // Optional image/card background for move
 }
 
 export interface BattleState {
