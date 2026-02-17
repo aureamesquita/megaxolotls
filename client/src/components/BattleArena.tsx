@@ -6,7 +6,7 @@ import { MoveCardDetail } from './MoveCardDetail';
 
 interface BattleArenaProps {
   availableMoves: Move[];
-  onBattleEnd?: (winner: 'player' | 'enemy') => void;
+  onBattleEnd?: (winner: 'player' | 'enemy' | 'draw' | null) => void;
 }
 
 export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBattleEnd }) => {
@@ -40,6 +40,14 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
             <div className="mb-4">
               <h3 className="text-neon-cyan font-bold text-lg mb-2">Your Axolotl</h3>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
+              {/* Player Axolotl Image */}
+              <div className="mt-3 rounded overflow-hidden border border-neon-cyan/30 h-40 bg-black/60">
+                <img
+                  src="https://bi.fbcd.co/posts/axolotl-drawing-final-result-63bdad49f098a088673675.jpg"
+                  alt="Your Axolotl"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             {/* HP Bar */}
@@ -84,6 +92,14 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
             <div className="mb-4">
               <h3 className="text-neon-pink font-bold text-lg mb-2">Enemy Axolotl</h3>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
+              {/* Enemy Axolotl Image */}
+              <div className="mt-3 rounded overflow-hidden border border-neon-pink/30 h-40 bg-black/60">
+                <img
+                  src="https://www.emilydrawing.com/wp-content/uploads/2024/09/How-To-Draw-an-Axolotl-Steps-10.jpg"
+                  alt="Enemy Axolotl"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             {/* HP Bar */}
@@ -182,10 +198,14 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
           >
             <h2
               className={`text-3xl font-bold mb-4 ${
-                state.winner === 'player' ? 'text-neon-green' : 'text-neon-pink'
+                state.winner === 'player'
+                  ? 'text-neon-green'
+                  : state.winner === 'enemy'
+                  ? 'text-neon-pink'
+                  : 'text-yellow-400'
               }`}
             >
-              {state.winner === 'player' ? '🎉 VICTORY!' : '💀 DEFEAT!'}
+              {state.winner === 'player' ? '🎉 VICTORY!' : state.winner === 'enemy' ? '💀 DEFEAT!' : '🤝 DRAW!'}
             </h2>
             <button
               onClick={handleReset}

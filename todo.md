@@ -145,9 +145,11 @@
 - [ ] Account info (wallet address, join date)
 - [ ] Delete account option (com confirmação)
 
-## Phase 11: Battle System (FUTURE)
-- [ ] Create battle system logic (turn-based, in-memory)
-- [ ] Implement battle UI and animations
+## Phase 11: Battle System (IN PROGRESS)
+- [x] Create battle system logic (turn-based, in-memory)
+- [x] Implement battle UI and animations
+- [ ] Fix draw condition (both HP = 0)
+- [ ] Add Axolotl placeholder images in battle arena
 - [ ] Create care panel (feeding, training, in-memory)
 - [ ] Implement experience and leveling system
 

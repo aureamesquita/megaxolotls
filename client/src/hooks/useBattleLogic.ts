@@ -15,7 +15,7 @@ export interface BattleState {
   battleLog: string[];
   isPlayerTurn: boolean;
   battleEnded: boolean;
-  winner: 'player' | 'enemy' | null;
+  winner: 'player' | 'enemy' | null | 'draw';
 }
 
 const INITIAL_STATE: BattleState = {
@@ -88,7 +88,12 @@ export const useBattleLogic = () => {
       let battleEnded = false;
       let winner: 'player' | 'enemy' | null = null;
 
-      if (newEnemyHP <= 0) {
+      // Check for draw first (both at 0 HP)
+      if (newEnemyHP <= 0 && newPlayerHP <= 0) {
+        battleEnded = true;
+        winner = null; // Draw
+        newLog.push('Draw! Both Axolotls fainted!');
+      } else if (newEnemyHP <= 0) {
         battleEnded = true;
         winner = 'player';
         newLog.push('Victory! Enemy defeated!');
