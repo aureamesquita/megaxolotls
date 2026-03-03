@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useLocation } from 'wouter';
@@ -30,10 +31,12 @@ export default function Dashboard() {
   const { logout } = useAuth();
   const [, setLocation] = useLocation();
 
-  if (!isConnected) {
-    setLocation('/');
-    return null;
-  }
+  // Redirect to home if not connected (use effect to avoid setState during render)
+  useEffect(() => {
+    if (!isConnected) {
+      setLocation('/');
+    }
+  }, [isConnected, setLocation]);
 
   const handleLogout = async () => {
     await logout();
