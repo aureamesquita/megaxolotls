@@ -1,6 +1,24 @@
 import { Move } from '@shared/types';
 
 /**
+ * Struggle move - automatically available when no other moves are left
+ * Deals 50% recoil damage to user
+ */
+export const STRUGGLE_MOVE: Move = {
+  id: 'struggle',
+  name: 'Struggle',
+  type: 'physical',
+  power: 50,
+  accuracy: 100,
+  pp: 999,
+  currentPp: 999,
+  damage: 40,
+  energyCost: 0, // Free move
+  description: 'A desperation move used when all other moves have run out. Deals recoil damage to the user.',
+  learnedAtLevel: 1,
+};
+
+/**
  * Mock moves data for Axolotls
  * Used for battle system testing and UI development
  */
@@ -114,15 +132,44 @@ export const AXOLOTL_MOVES: Move[] = [
 
 /**
  * Get 4 random moves for battle demo
+ * If fewer than 4 moves are available, add Struggle as fallback
  */
 export const getRandomBattleMoves = (count: number = 4): Move[] => {
   const shuffled = [...AXOLOTL_MOVES].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  const selected = shuffled.slice(0, count);
+  
+  // If less than 4 moves, add Struggle as fallback
+  if (selected.length < count) {
+    selected.push(STRUGGLE_MOVE);
+  }
+  
+  return selected;
 };
 
 /**
  * Get moves by level
+ * Always includes Struggle as fallback
  */
 export const getMovesByLevel = (level: number): Move[] => {
-  return AXOLOTL_MOVES.filter((move) => (move.learnedAtLevel ?? 1) <= level);
+  const moves = AXOLOTL_MOVES.filter((move) => (move.learnedAtLevel ?? 1) <= level);
+  // Always include Struggle
+  if (!moves.find((m) => m.id === 'struggle')) {
+    moves.push(STRUGGLE_MOVE);
+  }
+  return moves;
+};
+
+/**
+ * Get available moves for battle
+ * Filters out moves with 0 PP and adds Struggle if no moves available
+ */
+export const getAvailableBattleMoves = (moves: Move[]): Move[] => {
+  const available = moves.filter((move) => move.currentPp > 0);
+  
+  // If no moves available, return only Struggle
+  if (available.length === 0) {
+    return [STRUGGLE_MOVE];
+  }
+  
+  return available;
 };

@@ -61,15 +61,15 @@ export default function Dashboard() {
   };
 
   const menuItems = [
-    { icon: Users, label: 'Pets', color: 'from-neon-pink to-purple-500' },
-    { icon: Users, label: 'Teams', color: 'from-neon-cyan to-blue-500' },
-    { icon: Backpack, label: 'Bag', color: 'from-yellow-400 to-orange-500' },
-    { icon: Swords, label: 'Stadium', color: 'from-red-500 to-pink-500' },
-    { icon: Heart, label: 'Care', color: 'from-green-400 to-emerald-500' },
-    { icon: Egg, label: 'Breed', color: 'from-purple-400 to-indigo-500' },
-    { icon: ShoppingBag, label: 'Shop', color: 'from-blue-400 to-cyan-500' },
-    { icon: Trophy, label: 'Ranking', color: 'from-yellow-500 to-amber-500' },
-    { icon: BookOpen, label: 'Changelog', color: 'from-pink-400 to-rose-500' },
+    { icon: Users, label: 'Pets', color: 'from-neon-pink to-purple-500', path: '/pets' },
+    { icon: Users, label: 'Teams', color: 'from-neon-cyan to-blue-500', path: '/teams' },
+    { icon: Backpack, label: 'Bag', color: 'from-yellow-400 to-orange-500', path: '/bag' },
+    { icon: Swords, label: 'Stadium', color: 'from-red-500 to-pink-500', path: '/stadium' },
+    { icon: Heart, label: 'Care', color: 'from-green-400 to-emerald-500', path: '/care' },
+    { icon: Egg, label: 'Breed', color: 'from-purple-400 to-indigo-500', path: '/breed' },
+    { icon: ShoppingBag, label: 'Shop', color: 'from-blue-400 to-cyan-500', path: '/shop' },
+    { icon: Trophy, label: 'Ranking', color: 'from-yellow-500 to-amber-500', path: '/ranking' },
+    { icon: BookOpen, label: 'Changelog', color: 'from-pink-400 to-rose-500', path: '/changelog' },
   ];
 
   return (
@@ -215,7 +215,7 @@ export default function Dashboard() {
               return (
                 <motion.button
                   key={idx}
-                  onClick={() => setLocation(`/${item.label.toLowerCase()}`)}
+                  onClick={() => setLocation(item.path)}
                   className={`p-6 rounded-lg border border-neon-cyan/30 bg-black/40 hover:border-neon-pink/50 transition-all flex flex-col items-center gap-3 group`}
                   variants={itemVariants}
                   whileHover={{ y: -8, scale: 1.05 }}

@@ -135,23 +135,37 @@
 - [ ] Implementar filtros (rarity, species, level)
 - [ ] Add sorting options (level, rarity, newest)
 
-## Phase 10: Settings Page (NEXT)
-- [ ] Create Settings page com opções de configuração
-- [ ] Sound toggle (on/off)
-- [ ] Notifications toggle
-- [ ] Theme selector (dark/light mode)
-- [ ] Language selector (se aplicável)
-- [ ] Logout button
-- [ ] Account info (wallet address, join date)
-- [ ] Delete account option (com confirmação)
+
 
 ## Phase 11: Battle System (IN PROGRESS)
 - [x] Create battle system logic (turn-based, in-memory)
 - [x] Implement battle UI and animations
-- [ ] Fix draw condition (both HP = 0)
-- [ ] Add Axolotl placeholder images in battle arena
+- [x] Fix draw condition (both HP = 0)
+- [x] Add Axolotl placeholder images in battle arena
+- [x] Add Struggle move (5th move when no moves left)
 - [ ] Create care panel (feeding, training, in-memory)
 - [ ] Implement experience and leveling system
+
+## Phase 12: Changelog Page (COMPLETED)
+- [x] Create Changelog page component
+- [x] Parse .git logs from repository (mock data)
+- [x] Display commit history with date, author, message
+- [x] Add filtering/sorting by date
+- [x] Style com tema cyberpunk/neon
+- [x] Add rota /changelog ao App.tsx
+- [x] Add link no Dashboard
+
+## Phase 13: Settings Page (COMPLETED)
+- [x] Create Settings page component
+- [x] Add sound toggle (on/off)
+- [x] Add music volume slider
+- [x] Add SFX volume slider
+- [x] Add dialog frame selector (4 estilos: classic, neon, cyberpunk, minimal)
+- [x] Persist settings em localStorage
+- [x] Add logout button
+- [x] Add account info display
+- [x] Add rota /settings ao App.tsx
+- [x] Add link no Dashboard
 
 ## Phase 9: Testing & Polish
 - [ ] Write unit tests for battle logic

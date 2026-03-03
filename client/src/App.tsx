@@ -6,6 +6,8 @@ import Onboarding from "@/pages/Onboarding";
 import FirstUse from "@/pages/FirstUse";
 import Tutorial from "@/pages/Tutorial";
 import Dashboard from "@/pages/Dashboard";
+import Changelog from "@/pages/Changelog";
+import Settings from "@/pages/Settings";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -21,6 +23,8 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/battle-demo" component={BattleDemo} />
       <Route path="/onboarding" component={Onboarding} />
+      <Route path="/changelog" component={Changelog} />
+      <Route path="/settings" component={Settings} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
