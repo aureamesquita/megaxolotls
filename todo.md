@@ -167,7 +167,49 @@
 - [x] Add rota /settings ao App.tsx
 - [x] Add link no Dashboard
 
-## Phase 9: Testing & Polish
+## Phase 14: API & Data Integration (NEXT)
+- [ ] Create /api/commits endpoint para ler histórico do .git
+- [ ] Update Changelog page para usar API em vez de mock data
+- [ ] Implement XP & Leveling system
+- [ ] Add level-up automático e evolução para Axolump/Axoloot
+- [ ] Implement experience tracking em localStorage
+
+## Phase 15: Pets Gallery Page (COMPLETED)
+- [x] Create Pets page component com modal de detalhes
+- [x] Display Axolotls possuídos com imagens (mock data)
+- [x] Add filtros (rarity, species)
+- [x] Add sorting options (level, rarity, newest)
+- [x] Add "Battle" button para cada pet
+- [x] Add link no Dashboard
+- [x] Add rota /pets ao App.tsx
+- [x] Create 49 testes passando (8 novos testes de Pets)
+
+## Phase 16: Teams Screen & Contract (NEXT)
+- [ ] Create Teams page component
+- [ ] Design Megaxolotl PetTeams smart contract (.sol)
+- [ ] Implement team building UI
+- [ ] Add team composition limits
+- [ ] Add team stats display
+- [ ] Add rota /teams ao App.tsx
+
+## Phase 17: Bag Screen & Items System (NEXT)
+- [ ] Create Bag page component
+- [ ] Display LIP token com count badge
+- [ ] Design Megaxolotl PetItems Dex smart contract (.sol)
+- [ ] Design Megaxolotl PetItems semi-fungible contract (.sol)
+- [ ] Create items inventory display
+- [ ] Leave space para expandir item types
+- [ ] Add rota /bag ao App.tsx
+
+## Phase 18: Care Rooms System (NEXT)
+- [ ] Create Care page com room selector
+- [ ] Implement 6 rooms: Hall, Bedroom, Cozy, Medsroom, Playroom, Breedroom
+- [ ] Design room UI com tema cyberpunk
+- [ ] Add care actions por room
+- [ ] Implement room effects em stats
+- [ ] Add rota /care ao App.tsx
+
+## Phase 19: Testing & Polish
 - [ ] Write unit tests for battle logic
 - [ ] Write integration tests for wallet connection
 - [ ] Test animations performance
