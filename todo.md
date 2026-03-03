@@ -201,15 +201,22 @@
 - [ ] Leave space para expandir item types
 - [ ] Add rota /bag ao App.tsx
 
-## Phase 18: Care Rooms System (NEXT)
-- [ ] Create Care page com room selector
-- [ ] Implement 6 rooms: Hall, Bedroom, Cozy, Medsroom, Playroom, Breedroom
-- [ ] Design room UI com tema cyberpunk
-- [ ] Add care actions por room
-- [ ] Implement room effects em stats
-- [ ] Add rota /care ao App.tsx
+## Phase 18: Demo Hub Navigation (COMPLETED)
+- [x] Create DemoHub page (/demo-hub) com navegação para Battle e Care
+- [x] Update "Try Demo" button em Home.tsx para navegar a /demo-hub
+- [x] Remove Battle e Care buttons do splash screen (Home.tsx)
+- [x] Adicionar rota /demo-hub ao App.tsx
+- [x] Implementar design neon temático com feature cards
 
-## Phase 19: Testing & Polish
+## Phase 19: Care Rooms System (COMPLETED)
+- [x] Create Care page com room selector
+- [x] Implement 6 rooms: Hall, Bedroom, Cozy, Medsroom, Playroom, Breedroom
+- [x] Design room UI com tema cyberpunk
+- [x] Add care actions por room
+- [x] Implement room effects em stats
+- [x] Add rota /care ao App.tsx
+
+## Phase 20: Testing & Polish
 - [ ] Write unit tests for battle logic
 - [ ] Write integration tests for wallet connection
 - [ ] Test animations performance

@@ -212,7 +212,7 @@ export default function Home() {
           </motion.button>
 
           <motion.button
-            onClick={() => setLocation('/battle-demo')}
+            onClick={() => setLocation('/demo-hub')}
             className="px-8 py-4 font-bold text-lg text-black bg-neon-cyan rounded-lg hover:bg-neon-green transition-all hover:shadow-lg hover:shadow-neon-cyan/50"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -223,27 +223,7 @@ export default function Home() {
             </div>
           </motion.button>
 
-          <motion.button
-            onClick={() => setLocation('/battle-demo')}
-            className="px-8 py-4 font-bold text-lg text-white bg-gradient-to-r from-neon-green to-neon-cyan rounded-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-neon-green/50"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="relative flex items-center gap-2">
-              Battle
-            </div>
-          </motion.button>
 
-          <motion.button
-            onClick={() => setLocation('/care')}
-            className="px-8 py-4 font-bold text-lg text-white bg-gradient-to-r from-neon-pink to-neon-green rounded-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-neon-pink/50"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="relative flex items-center gap-2">
-              Care
-            </div>
-          </motion.button>
         </motion.div>
 
         {/* Footer Info */}
