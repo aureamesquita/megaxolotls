@@ -9,6 +9,7 @@ import Dashboard from "@/pages/Dashboard";
 import Changelog from "@/pages/Changelog";
 import Settings from "@/pages/Settings";
 import Pets from "@/pages/Pets";
+import Care from "@/pages/Care";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/changelog" component={Changelog} />
       <Route path="/settings" component={Settings} />
       <Route path="/pets" component={Pets} />
+      <Route path="/care" component={Care} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
