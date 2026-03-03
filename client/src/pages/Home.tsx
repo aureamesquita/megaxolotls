@@ -195,7 +195,7 @@ export default function Home() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 items-center justify-center"
+          className="flex flex-col sm:flex-row gap-4 items-center justify-center flex-wrap"
           variants={itemVariants}
         >
           <motion.button
@@ -220,6 +220,28 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <Sparkles className="w-5 h-5" />
               Try Demo
+            </div>
+          </motion.button>
+
+          <motion.button
+            onClick={() => setLocation('/battle-demo')}
+            className="px-8 py-4 font-bold text-lg text-white bg-gradient-to-r from-neon-green to-neon-cyan rounded-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-neon-green/50"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="relative flex items-center gap-2">
+              Battle
+            </div>
+          </motion.button>
+
+          <motion.button
+            onClick={() => setLocation('/care')}
+            className="px-8 py-4 font-bold text-lg text-white bg-gradient-to-r from-neon-pink to-neon-green rounded-lg overflow-hidden transition-all hover:shadow-lg hover:shadow-neon-pink/50"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="relative flex items-center gap-2">
+              Care
             </div>
           </motion.button>
         </motion.div>
