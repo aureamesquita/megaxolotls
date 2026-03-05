@@ -230,3 +230,27 @@
 - [ ] Document API endpoints
 - [ ] Create deployment guide
 - [ ] Final testing on MegaETH
+
+## Phase 21: Web3 Token Balance Integration (COMPLETED)
+- [x] Criar hook useLIPBalance para ler saldo de LIP token
+- [x] Criar hook useMAGAXBalance para ler saldo de MEGAX token
+- [x] Integrar hooks no Dashboard para exibir balances em tempo real
+- [x] Adicionar loading states durante fetch de balances
+- [x] Implementar error handling para falhas de RPC
+- [ ] Adicionar refresh button para atualizar balances (futuro)
+
+## Phase 22: Teams Screen (COMPLETED)
+- [x] Criar página /teams com interface de composição de times
+- [x] Exibir Axolotls disponíveis para adicionar ao time
+- [x] Mostrar stats agregados do time
+- [x] Adicionar limite de composição (máximo 3 pets por time)
+- [x] Botão para salvar/atualizar time
+- [x] Add rota /teams ao App.tsx
+- [ ] Implementar drag-and-drop para composição de time (futuro)
+- [ ] Integrar com smart contract PetTeams (futuro)
+
+## Phase 23: PetTeams Smart Contract (FUTURE)
+- [ ] Design contrato ERC-721 para gerenciamento de times
+- [ ] Implementar funções: createTeam, addPet, removePet, getTeam
+- [ ] Adicionar validações de composição
+- [ ] Deploy no MegaETH testnet

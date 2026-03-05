@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useFirstUse } from '@/hooks/useFirstUse';
 import { useAuth } from '@/_core/hooks/useAuth';
+import { useGameTokenBalances } from '@/hooks/useTokenBalance';
 import { PlaytimeTracker } from '@/components/PlaytimeTracker';
 
 /**
@@ -30,6 +31,7 @@ export default function Dashboard() {
   const { address, isConnected } = useAccount();
   const { logout } = useAuth();
   const [, setLocation] = useLocation();
+  const { lip, megax, isLoading: isLoadingBalances } = useGameTokenBalances();
 
   // Redirect to home if not connected (use effect to avoid setState during render)
   useEffect(() => {
@@ -184,7 +186,9 @@ export default function Dashboard() {
               </div>
               <div className="flex-1">
                 <p className="text-sm text-gray-400">LIP Token</p>
-                <p className="text-2xl font-bold text-neon-cyan">0.00</p>
+                <p className="text-2xl font-bold text-neon-cyan">
+                  {isLoadingBalances ? '...' : lip.balance}
+                </p>
               </div>
             </div>
             <p className="text-xs text-gray-500 mt-3">Gameplay token • Earn from battles</p>
@@ -202,7 +206,9 @@ export default function Dashboard() {
               </div>
               <div className="flex-1">
                 <p className="text-sm text-gray-400">MEGAX Token</p>
-                <p className="text-2xl font-bold text-neon-pink">0.00</p>
+                <p className="text-2xl font-bold text-neon-pink">
+                  {isLoadingBalances ? '...' : megax.balance}
+                </p>
               </div>
             </div>
             <p className="text-xs text-gray-500 mt-3">Governance token • Trade & govern</p>
