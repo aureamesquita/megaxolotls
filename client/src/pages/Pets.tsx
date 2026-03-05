@@ -250,7 +250,7 @@ export default function Pets() {
         {/* Pets Grid */}
         <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" variants={containerVariants}>
           {filteredAndSortedPets.map(pet => (
-            <motion.button
+            <motion.div
               key={pet.id}
               onClick={() => setSelectedPet(pet)}
               className={`relative p-6 rounded-lg border-2 transition-all cursor-pointer group overflow-hidden ${rarityBgColors[pet.rarity]}`}
@@ -319,7 +319,7 @@ export default function Pets() {
                   BATTLE
                 </Button>
               </div>
-            </motion.button>
+            </motion.div>
           ))}
         </motion.div>
       </motion.div>
