@@ -36,6 +36,22 @@ export default function DemoHub() {
       color: 'from-cyan-500 to-blue-500',
       action: () => setLocation('/pets'),
     },
+    {
+      id: 'teams',
+      title: 'Teams',
+      emoji: '👥',
+      description: 'Team building',
+      color: 'from-purple-500 to-pink-500',
+      action: () => setLocation('/teams'),
+    },
+    {
+      id: 'bag',
+      title: 'Bag',
+      emoji: '🎒',
+      description: 'Inventory & items',
+      color: 'from-yellow-500 to-orange-500',
+      action: () => setLocation('/bag'),
+    },
   ];
 
   const containerVariants = {

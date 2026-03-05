@@ -285,8 +285,48 @@
 - [x] Add rota /bag ao App.tsx
 - [x] Mock data com 5 tipos de itens
 
+## Phase 28: Smart Contracts - PetTeams, PetItemsDex, PetItems (COMPLETED)
+- [x] Criar contrato PetTeams (ERC-721) para team building
+- [x] Implementar funções: createTeam, addPetToTeam, removePetFromTeam, renameTeam, recordBattle
+- [x] Adicionar getters: getTeam, getTeamPetCount, getTeamWinRate
+- [x] Criar contrato PetItemsDex (registry de itens)
+- [x] Implementar funções: addItem, updateItem, deactivateItem, incrementSupply
+- [x] Criar contrato PetItems (ERC-1155 semi-fungível)
+- [x] Implementar funções: mintItem, burnItem, tradeItem
+- [x] Adicionar getters: getUserItemCount, getItemBalance, getTotalMints
+
+## Phase 29: Teams Screen UI (COMPLETED)
+- [x] Redesenhar Teams.tsx com novo design
+- [x] Implementar seletor de raridade com cores
+- [x] Adicionar grid de pets disponíveis
+- [x] Mostrar stats agregados do time
+- [x] Botão "Save Team to Contract" com loading state
+- [x] Validação de limite de 3 pets
+- [x] Animações Framer Motion
+
+## Phase 30: Bag Screen with PetItems Integration (COMPLETED)
+- [x] Redesenhar Bag.tsx com novo design
+- [x] Adicionar LIP token badge destacado no topo
+- [x] Mostrar PetItems com raridade e quantidade
+- [x] Painel de detalhes de item selecionado
+- [x] Botão "Use Item" funcional
+- [x] Placeholder para PetItems Dex
+- [x] Animações e feedback visual
+
+## Phase 31: DemoHub Navigation Update (COMPLETED)
+- [x] Adicionar botão "Teams" ao DemoHub
+- [x] Adicionar botão "Bag" ao DemoHub
+- [x] Atualizar cores e emojis
+- [x] Manter navegação funcional
+
+## Phase 32: Testing & Validation (COMPLETED)
+- [x] 60 testes passando
+- [x] Dev server rodando sem erros
+- [x] TypeScript sem erros
+- [x] Todas as páginas funcionando
+
 ## Phase 23: PetTeams Smart Contract (FUTURE)
-- [ ] Design contrato ERC-721 para gerenciamento de times
-- [ ] Implementar funções: createTeam, addPet, removePet, getTeam
-- [ ] Adicionar validações de composição
-- [ ] Deploy no MegaETH testnet
+- [ ] Deploy contrato PetTeams no MegaETH testnet
+- [ ] Deploy contrato PetItemsDex no MegaETH testnet
+- [ ] Deploy contrato PetItems no MegaETH testnet
+- [ ] Integrar Web3 hooks para interagir com contratos

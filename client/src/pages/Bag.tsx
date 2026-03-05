@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { ArrowLeft, Coins, Trash2 } from 'lucide-react';
+import { ArrowLeft, Coins, Trash2, Package } from 'lucide-react';
 
 interface BagItem {
   id: string;
@@ -10,9 +10,19 @@ interface BagItem {
   quantity: number;
   rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
   description: string;
+  source?: 'petitems' | 'consumable';
 }
 
 const MOCK_ITEMS: BagItem[] = [
+  {
+    id: 'lip-token',
+    name: 'LIP Token',
+    emoji: '💰',
+    quantity: 1250,
+    rarity: 'legendary',
+    description: 'In-game currency for purchases',
+    source: 'consumable',
+  },
   {
     id: 'potion-hp',
     name: 'HP Potion',
@@ -20,6 +30,7 @@ const MOCK_ITEMS: BagItem[] = [
     quantity: 5,
     rarity: 'common',
     description: 'Restores 30 HP',
+    source: 'petitems',
   },
   {
     id: 'potion-energy',
@@ -28,6 +39,7 @@ const MOCK_ITEMS: BagItem[] = [
     quantity: 3,
     rarity: 'uncommon',
     description: 'Restores 50 Energy',
+    source: 'petitems',
   },
   {
     id: 'rare-candy',
@@ -36,6 +48,7 @@ const MOCK_ITEMS: BagItem[] = [
     quantity: 1,
     rarity: 'rare',
     description: 'Grants 1 Level',
+    source: 'petitems',
   },
   {
     id: 'evolution-stone',
@@ -44,14 +57,7 @@ const MOCK_ITEMS: BagItem[] = [
     quantity: 0,
     rarity: 'epic',
     description: 'Triggers evolution',
-  },
-  {
-    id: 'legendary-egg',
-    name: 'Legendary Egg',
-    emoji: '🥚',
-    quantity: 0,
-    rarity: 'legendary',
-    description: 'Summons a legendary pet',
+    source: 'petitems',
   },
 ];
 
@@ -90,31 +96,22 @@ const getRarityBorder = (rarity: string): string => {
 };
 
 /**
- * Bag Screen - Item inventory (app mobile style)
+ * Bag Screen - Inventory management with LIP tokens and PetItems
  */
 export default function Bag() {
-  const [, navigate] = useLocation();
-  const [lipBalance] = useState(1250); // Mock LIP balance
-  const [items, setItems] = useState<BagItem[]>(MOCK_ITEMS);
+  const [, setLocation] = useLocation();
   const [selectedItem, setSelectedItem] = useState<BagItem | null>(null);
 
-  const useItem = (itemId: string) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === itemId && item.quantity > 0
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
-
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  // Separate LIP token from other items
+  const lipToken = MOCK_ITEMS.find((item) => item.id === 'lip-token');
+  const otherItems = MOCK_ITEMS.filter((item) => item.id !== 'lip-token');
+  const petItems = otherItems.filter((item) => item.source === 'petitems');
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
     },
   };
 
@@ -124,7 +121,7 @@ export default function Bag() {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 flex flex-col">
+    <div className="relative min-h-screen w-full bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 flex flex-col">
       {/* Top bar */}
       <motion.div
         className="flex items-center justify-between px-4 py-3 border-b border-neon-cyan/20 bg-black/40 backdrop-blur-sm"
@@ -132,156 +129,160 @@ export default function Bag() {
         animate={{ opacity: 1, y: 0 }}
       >
         <motion.button
-          onClick={() => navigate('/dashboard')}
+          onClick={() => setLocation('/dashboard')}
           className="p-2 hover:bg-neon-cyan/10 rounded-lg transition-all"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
           <ArrowLeft className="w-5 h-5 text-neon-cyan" />
         </motion.button>
-        <h1 className="text-lg font-bold text-neon-cyan">BAG</h1>
+        <h1 className="text-lg font-bold text-neon-cyan flex items-center gap-2">
+          <Package className="w-5 h-5" />
+          BAG
+        </h1>
         <div className="w-9" />
       </motion.div>
 
       {/* Main content */}
       <motion.div
-        className="flex-1 flex flex-col px-4 py-6 overflow-y-auto"
+        className="flex-1 flex flex-col gap-6 px-4 py-6 overflow-y-auto"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* LIP Token Card */}
-        <motion.div
-          className="mb-6 p-4 rounded-lg bg-gradient-to-br from-yellow-600/20 to-orange-600/20 border-2 border-yellow-500/50"
-          variants={itemVariants}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Coins className="w-8 h-8 text-yellow-400" />
-              <div>
-                <p className="text-sm text-gray-400">LIP Balance</p>
-                <p className="text-2xl font-bold text-yellow-400">{lipBalance}</p>
-              </div>
-            </div>
-            <div className="text-3xl">💰</div>
-          </div>
-        </motion.div>
+        {/* LIP Token Badge */}
+        {lipToken && (
+          <motion.div className="max-w-2xl mx-auto w-full" variants={itemVariants}>
+            <div className={`p-6 rounded-lg bg-gradient-to-br ${getRarityColor(lipToken.rarity)} border-2 ${getRarityBorder(lipToken.rarity)} relative overflow-hidden`}>
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
 
-        {/* Items count */}
-        <motion.div className="mb-4 text-sm text-gray-400" variants={itemVariants}>
-          <p>
-            Items: <span className="text-neon-cyan font-bold">{totalItems}</span> / 20
-          </p>
-        </motion.div>
-
-        {/* Items grid */}
-        <motion.div className="grid grid-cols-2 gap-3" variants={containerVariants}>
-          {items.map((item) => (
-            <motion.button
-              key={item.id}
-              onClick={() => setSelectedItem(item)}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                selectedItem?.id === item.id
-                  ? `border-neon-cyan bg-black/60 shadow-lg shadow-neon-cyan/50`
-                  : `${getRarityBorder(item.rarity)} bg-black/40 hover:bg-black/60`
-              } ${item.quantity === 0 ? 'opacity-50' : ''}`}
-              variants={itemVariants}
-              whileHover={item.quantity > 0 ? { scale: 1.05 } : {}}
-              whileTap={item.quantity > 0 ? { scale: 0.95 } : {}}
-              disabled={item.quantity === 0}
-            >
-              <div className="text-center">
-                <div className="text-4xl mb-2">{item.emoji}</div>
-                <p className="text-xs font-bold text-gray-300 truncate">{item.name}</p>
-                <p className="text-sm font-bold text-neon-cyan mt-1">×{item.quantity}</p>
-                <div
-                  className={`mt-2 inline-block px-2 py-0.5 rounded text-xs font-bold bg-gradient-to-r ${getRarityColor(
-                    item.rarity
-                  )} text-white`}
-                >
-                  {item.rarity}
+              <div className="relative z-10 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="text-5xl">{lipToken.emoji}</div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-white">{lipToken.name}</h2>
+                    <p className="text-sm text-white/80">{lipToken.description}</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-4xl font-bold text-white">{lipToken.quantity.toLocaleString()}</p>
+                  <p className="text-xs text-white/60">Available</p>
                 </div>
               </div>
-            </motion.button>
-          ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* PetItems Section */}
+        <motion.div className="max-w-2xl mx-auto w-full" variants={itemVariants}>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-sm font-bold text-neon-cyan flex items-center gap-2">
+              <Coins className="w-4 h-4" />
+              PetItems ({petItems.length})
+            </h2>
+            <p className="text-xs text-gray-400">From PetItems Dex</p>
+          </div>
+
+          {petItems.length === 0 ? (
+            <div className="p-6 rounded-lg border-2 border-dashed border-neon-cyan/30 text-center">
+              <p className="text-gray-400 text-sm">No items yet. Earn items by battling and caring for your pets!</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {petItems.map((item) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className={`relative p-4 rounded-lg bg-gradient-to-br ${getRarityColor(item.rarity)} border-2 ${getRarityBorder(item.rarity)} hover:shadow-lg hover:shadow-${item.rarity}-500/50 transition-all text-left group ${item.quantity === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  whileHover={item.quantity > 0 ? { scale: 1.02 } : {}}
+                  whileTap={item.quantity > 0 ? { scale: 0.98 } : {}}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="text-3xl mb-1">{item.emoji}</div>
+                      <h3 className="font-bold text-white text-sm">{item.name}</h3>
+                      <p className="text-xs text-white/80 mt-1">{item.description}</p>
+                    </div>
+                    <div className="text-right">
+                      {item.quantity > 0 && (
+                        <motion.div
+                          className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/20 border border-white/40"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                        >
+                          <span className="text-xs font-bold text-white">{item.quantity}</span>
+                        </motion.div>
+                      )}
+                      {item.quantity === 0 && (
+                        <p className="text-xs font-bold text-white/60">OUT</p>
+                      )}
+                    </div>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          )}
         </motion.div>
 
-        {/* Item details panel */}
+        {/* Item Details Panel */}
         {selectedItem && (
           <motion.div
-            className="mt-6 p-4 rounded-lg bg-black/60 border border-neon-cyan/30"
+            className="max-w-2xl mx-auto w-full p-6 rounded-lg bg-black/60 border border-neon-cyan/30 backdrop-blur-sm"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-neon-cyan">{selectedItem.name}</h3>
-                <p className="text-sm text-gray-400 mt-1">{selectedItem.description}</p>
-              </div>
-              <div className="text-4xl">{selectedItem.emoji}</div>
-            </div>
-
-            {/* Use button */}
-            {selectedItem.quantity > 0 && (
+              <h3 className="text-lg font-bold text-neon-cyan">{selectedItem.name}</h3>
               <motion.button
-                onClick={() => {
-                  useItem(selectedItem.id);
-                  setSelectedItem(null);
-                }}
-                className="w-full px-4 py-2 rounded-lg bg-gradient-to-r from-neon-cyan to-blue-500 hover:from-neon-cyan hover:to-blue-600 text-white font-bold transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedItem(null)}
+                className="p-1 hover:bg-red-500/20 rounded transition-all"
+                whileHover={{ scale: 1.2 }}
               >
-                Use Item
+                <Trash2 className="w-4 h-4 text-red-400" />
               </motion.button>
-            )}
+            </div>
 
-            {selectedItem.quantity === 0 && (
-              <div className="text-center text-gray-500 py-2">
-                <p>No items in inventory</p>
+            <div className="space-y-3">
+              <div>
+                <p className="text-xs text-gray-400 mb-1">Description</p>
+                <p className="text-sm text-white">{selectedItem.description}</p>
               </div>
-            )}
-          </motion.div>
-        )}
 
-        {/* Empty state */}
-        {items.every((item) => item.quantity === 0) && !selectedItem && (
-          <motion.div
-            className="flex-1 flex items-center justify-center text-center"
-            variants={itemVariants}
-          >
-            <div>
-              <div className="text-6xl mb-4">📦</div>
-              <p className="text-gray-400">Bag is empty</p>
-              <p className="text-sm text-gray-500 mt-2">Complete battles to earn items</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Rarity</p>
+                  <p className="text-sm font-bold text-white capitalize">{selectedItem.rarity}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Quantity</p>
+                  <p className="text-sm font-bold text-white">{selectedItem.quantity}</p>
+                </div>
+              </div>
+
+              {selectedItem.quantity > 0 && (
+                <motion.button
+                  className="w-full mt-4 p-3 rounded-lg bg-gradient-to-r from-neon-cyan to-neon-green text-black font-bold hover:shadow-lg hover:shadow-neon-cyan/50 transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Use Item
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}
-      </motion.div>
 
-      {/* Floating particles */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(2)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-neon-cyan rounded-full"
-            animate={{
-              x: [0, Math.random() * 200 - 100],
-              y: [0, Math.random() * 300 - 150],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.5,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+        {/* PetItems Dex Placeholder */}
+        <motion.div className="max-w-2xl mx-auto w-full" variants={itemVariants}>
+          <div className="p-6 rounded-lg border-2 border-dashed border-neon-cyan/30 text-center bg-black/20">
+            <p className="text-sm font-bold text-neon-cyan mb-2">📚 PetItems Dex</p>
+            <p className="text-xs text-gray-400">
+              Registry of all available items from PetItemsDex contract. Items are managed by the Dex and tracked via PetItems ERC-1155 semi-fungible tokens.
+            </p>
+          </div>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
