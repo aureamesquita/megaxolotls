@@ -1,9 +1,34 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'wouter';
-import { ArrowLeft, Heart, Droplets, Utensils, Zap } from 'lucide-react';
+import { ArrowLeft, Heart, Droplets, Utensils, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 
 type PetMood = 'happy' | 'neutral' | 'sad' | 'tired';
+type RoomType = 'Hall' | 'Bedroom' | 'Cozy' | 'Medsroom' | 'Playroom' | 'Breedroom';
+
+const ROOMS: RoomType[] = ['Hall', 'Bedroom', 'Cozy', 'Medsroom', 'Playroom', 'Breedroom'];
+
+const getRoomEmoji = (room: RoomType): string => {
+  switch (room) {
+    case 'Hall': return '🏛️';
+    case 'Bedroom': return '🛏️';
+    case 'Cozy': return '🪑';
+    case 'Medsroom': return '⚕️';
+    case 'Playroom': return '🎮';
+    case 'Breedroom': return '🥚';
+  }
+};
+
+const getRoomColor = (room: RoomType): string => {
+  switch (room) {
+    case 'Hall': return 'from-purple-600 to-purple-700';
+    case 'Bedroom': return 'from-blue-600 to-blue-700';
+    case 'Cozy': return 'from-orange-600 to-orange-700';
+    case 'Medsroom': return 'from-green-600 to-green-700';
+    case 'Playroom': return 'from-pink-600 to-pink-700';
+    case 'Breedroom': return 'from-yellow-600 to-yellow-700';
+  }
+};
 
 interface PetState {
   hunger: number; // 0-100
@@ -61,6 +86,17 @@ export default function Care() {
   const [petState, setPetState] = useState<PetState>(loadPetState);
   const [petAnimating, setPetAnimating] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
+  const [currentRoomIndex, setCurrentRoomIndex] = useState(0);
+
+  const currentRoom = ROOMS[currentRoomIndex];
+
+  const nextRoom = () => {
+    setCurrentRoomIndex((prev) => (prev + 1) % ROOMS.length);
+  };
+
+  const prevRoom = () => {
+    setCurrentRoomIndex((prev) => (prev - 1 + ROOMS.length) % ROOMS.length);
+  };
 
   // Calculate mood based on stats
   useEffect(() => {
@@ -155,22 +191,60 @@ export default function Care() {
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 flex flex-col">
-      {/* Top bar */}
+      {/* Top bar with room selector */}
       <motion.div
-        className="flex items-center justify-between px-4 py-3 border-b border-neon-cyan/20 bg-black/40 backdrop-blur-sm"
+        className="border-b border-neon-cyan/20 bg-black/40 backdrop-blur-sm"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <motion.button
-          onClick={() => navigate('/dashboard')}
-          className="p-2 hover:bg-neon-cyan/10 rounded-lg transition-all"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <ArrowLeft className="w-5 h-5 text-neon-cyan" />
-        </motion.button>
-        <h1 className="text-lg font-bold text-neon-cyan">CARE</h1>
-        <div className="w-9" />
+        {/* First row: Back button and title */}
+        <div className="flex items-center justify-between px-4 py-3">
+          <motion.button
+            onClick={() => navigate('/dashboard')}
+            className="p-2 hover:bg-neon-cyan/10 rounded-lg transition-all"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowLeft className="w-5 h-5 text-neon-cyan" />
+          </motion.button>
+          <h1 className="text-lg font-bold text-neon-cyan">CARE</h1>
+          <div className="w-9" />
+        </div>
+
+        {/* Second row: Room selector */}
+        <div className="flex items-center justify-between px-4 py-4 border-t border-neon-cyan/10">
+          {/* Left arrow */}
+          <motion.button
+            onClick={prevRoom}
+            className="p-2 hover:bg-neon-pink/10 rounded-lg transition-all"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronLeft className="w-5 h-5 text-neon-pink" />
+          </motion.button>
+
+          {/* Room name and emoji */}
+          <motion.div
+            key={currentRoom}
+            className={`flex-1 text-center px-4 py-2 rounded-lg bg-gradient-to-r ${getRoomColor(currentRoom)} text-white font-bold`}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="text-2xl mb-1">{getRoomEmoji(currentRoom)}</div>
+            <div className="text-sm">{currentRoom}</div>
+          </motion.div>
+
+          {/* Right arrow */}
+          <motion.button
+            onClick={nextRoom}
+            className="p-2 hover:bg-neon-cyan/10 rounded-lg transition-all"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronRight className="w-5 h-5 text-neon-cyan" />
+          </motion.button>
+        </div>
       </motion.div>
 
       {/* Main content */}
