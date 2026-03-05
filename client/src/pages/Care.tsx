@@ -30,17 +30,35 @@ const getMoodColor = (mood: PetMood): string => {
   }
 };
 
+const PET_STATE_STORAGE_KEY = 'megaxolotls-pet-state';
+
+const loadPetState = (): PetState => {
+  const saved = localStorage.getItem(PET_STATE_STORAGE_KEY);
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      console.error('Failed to load pet state:', e);
+    }
+  }
+  return {
+    hunger: 50,
+    happiness: 70,
+    energy: 60,
+    mood: 'neutral',
+  };
+};
+
+const savePetState = (state: PetState) => {
+  localStorage.setItem(PET_STATE_STORAGE_KEY, JSON.stringify(state));
+};
+
 /**
  * Care Screen - Tamagotchi-style pet care (2010s mobile app aesthetic)
  */
 export default function Care() {
   const [, navigate] = useLocation();
-  const [petState, setPetState] = useState<PetState>({
-    hunger: 50,
-    happiness: 70,
-    energy: 60,
-    mood: 'neutral',
-  });
+  const [petState, setPetState] = useState<PetState>(loadPetState);
   const [petAnimating, setPetAnimating] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
 
@@ -64,44 +82,60 @@ export default function Care() {
 
   const feed = () => {
     setPetAnimating(true);
-    setPetState((prev) => ({
-      ...prev,
-      hunger: Math.max(0, prev.hunger - 30),
-      happiness: Math.min(100, prev.happiness + 10),
-    }));
+    setPetState((prev) => {
+      const newState = {
+        ...prev,
+        hunger: Math.max(0, prev.hunger - 30),
+        happiness: Math.min(100, prev.happiness + 10),
+      };
+      savePetState(newState);
+      return newState;
+    });
     showFeedback('Nom nom! 😋');
     setTimeout(() => setPetAnimating(false), 500);
   };
 
   const play = () => {
     setPetAnimating(true);
-    setPetState((prev) => ({
-      ...prev,
-      happiness: Math.min(100, prev.happiness + 25),
-      energy: Math.max(0, prev.energy - 20),
-      hunger: Math.min(100, prev.hunger + 15),
-    }));
+    setPetState((prev) => {
+      const newState = {
+        ...prev,
+        happiness: Math.min(100, prev.happiness + 25),
+        energy: Math.max(0, prev.energy - 20),
+        hunger: Math.min(100, prev.hunger + 15),
+      };
+      savePetState(newState);
+      return newState;
+    });
     showFeedback('Wheee! 🎉');
     setTimeout(() => setPetAnimating(false), 500);
   };
 
   const sleep = () => {
     setPetAnimating(true);
-    setPetState((prev) => ({
-      ...prev,
-      energy: 100,
-      hunger: Math.min(100, prev.hunger + 10),
-    }));
+    setPetState((prev) => {
+      const newState = {
+        ...prev,
+        energy: 100,
+        hunger: Math.min(100, prev.hunger + 10),
+      };
+      savePetState(newState);
+      return newState;
+    });
     showFeedback('Zzzzz... 😴');
     setTimeout(() => setPetAnimating(false), 1500);
   };
 
   const pet = () => {
     setPetAnimating(true);
-    setPetState((prev) => ({
-      ...prev,
-      happiness: Math.min(100, prev.happiness + 15),
-    }));
+    setPetState((prev) => {
+      const newState = {
+        ...prev,
+        happiness: Math.min(100, prev.happiness + 15),
+      };
+      savePetState(newState);
+      return newState;
+    });
     showFeedback('Purr! 💕');
     setTimeout(() => setPetAnimating(false), 400);
   };

@@ -259,6 +259,32 @@
 - [x] Design mobile-first (top bar, centered content, action buttons)
 - [x] Disabled states para botões (baseado em stats)
 
+## Phase 25: XP System with Smart Contract Integration (COMPLETED)
+- [x] Atualizar contrato AxolotlNFT com função addExperienceWithEvolution
+- [x] Adicionar funções getter: getAxolotlMorphStage, getPetLevel, getPetExperience
+- [x] Criar hook useXPSystem para gerenciar XP e evolução
+- [x] Criar hook useContractXP para interagir com contrato (mock)
+- [x] Implementar lógica de evolução: Axolol (lvl 1) → Axolump (lvl 20) → Axoloot (lvl 50)
+- [x] Persistência de XP em localStorage
+- [x] Função getBattleXPReward para cálculo de XP por batalha
+
+## Phase 26: Pet State Persistence (COMPLETED)
+- [x] Adicionar persistência de pet state no Care (hunger, happiness, energy)
+- [x] Salvar estado em localStorage ao executar ações
+- [x] Carregar estado ao abrir Care page
+- [x] Manter estado entre sessões
+
+## Phase 27: Bag Screen - Inventory System (COMPLETED)
+- [x] Criar página /bag com inventário de itens
+- [x] Exibir LIP token badge com saldo
+- [x] Grid de itens com raridade (common, uncommon, rare, epic, legendary)
+- [x] Sistema de cores por raridade
+- [x] Painel de detalhes de item selecionado
+- [x] Botão "Use Item" para consumir itens
+- [x] Design app mobile-first (top bar, centered content)
+- [x] Add rota /bag ao App.tsx
+- [x] Mock data com 5 tipos de itens
+
 ## Phase 23: PetTeams Smart Contract (FUTURE)
 - [ ] Design contrato ERC-721 para gerenciamento de times
 - [ ] Implementar funções: createTeam, addPet, removePet, getTeam

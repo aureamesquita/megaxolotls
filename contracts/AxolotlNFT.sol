@@ -149,8 +149,8 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         require(_exists(tokenId), "Token does not exist");
         petMetadata[tokenId].experience += amount;
 
-        // Level up every 1000 experience
-        uint256 newLevel = (petMetadata[tokenId].experience / 1000) + 1;
+        // Level up every 100 experience (adjusted for better progression)
+        uint256 newLevel = (petMetadata[tokenId].experience / 100) + 1;
         if (newLevel > petMetadata[tokenId].level) {
             petMetadata[tokenId].level = newLevel;
             emit PetLeveledUp(tokenId, newLevel);
@@ -160,6 +160,42 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
                 _checkAndEvolveAxolotl(tokenId, newLevel);
             }
         }
+    }
+
+    /**
+     * @dev Add experience and automatically evolve (convenience function for game logic)
+     * Returns the new level and morph stage
+     */
+    function addExperienceWithEvolution(uint256 tokenId, uint256 amount)
+        public
+        returns (uint256 newLevel, MorphStage newMorphStage, bool evolved)
+    {
+        require(_exists(tokenId), "Token does not exist");
+        
+        uint256 oldLevel = petMetadata[tokenId].level;
+        MorphStage oldMorphStage = petMetadata[tokenId].morphStage;
+        
+        // Add experience
+        petMetadata[tokenId].experience += amount;
+        
+        // Calculate new level
+        newLevel = (petMetadata[tokenId].experience / 100) + 1;
+        
+        // Update level and check for evolution
+        if (newLevel > oldLevel) {
+            petMetadata[tokenId].level = newLevel;
+            emit PetLeveledUp(tokenId, newLevel);
+            
+            // Check for morph stage evolution (axolotls only)
+            if (petMetadata[tokenId].species == PetSpecies.AXOLOTL) {
+                _checkAndEvolveAxolotl(tokenId, newLevel);
+            }
+        }
+        
+        newMorphStage = petMetadata[tokenId].morphStage;
+        evolved = (newMorphStage != oldMorphStage);
+        
+        return (newLevel, newMorphStage, evolved);
     }
 
     /**
@@ -179,6 +215,42 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
             petMetadata[tokenId].morphStage = newStage;
             emit AxolotlMorphed(tokenId, currentStage, newStage);
         }
+    }
+
+    /**
+     * @dev Get current morph stage of an axolotl
+     */
+    function getAxolotlMorphStage(uint256 tokenId)
+        public
+        view
+        returns (MorphStage)
+    {
+        require(_exists(tokenId), "Token does not exist");
+        return petMetadata[tokenId].morphStage;
+    }
+
+    /**
+     * @dev Get current level of a pet
+     */
+    function getPetLevel(uint256 tokenId)
+        public
+        view
+        returns (uint256)
+    {
+        require(_exists(tokenId), "Token does not exist");
+        return petMetadata[tokenId].level;
+    }
+
+    /**
+     * @dev Get current experience of a pet
+     */
+    function getPetExperience(uint256 tokenId)
+        public
+        view
+        returns (uint256)
+    {
+        require(_exists(tokenId), "Token does not exist");
+        return petMetadata[tokenId].experience;
     }
 
     /**
