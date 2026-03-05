@@ -249,6 +249,16 @@
 - [ ] Implementar drag-and-drop para composição de time (futuro)
 - [ ] Integrar com smart contract PetTeams (futuro)
 
+## Phase 24: Care & Demo App Redesign (COMPLETED)
+- [x] Redesenhar DemoHub como app menu screen (menos marketing, mais app)
+- [x] Redesenhar Care Room com estilo Tamagotchi (pet animado, botões de ação)
+- [x] Implementar mécanicas de pet care (feed, play, sleep, pet)
+- [x] Sistema de mood/happiness do pet com feedback visual
+- [x] Animações de feedback (emoji, bounces, scale)
+- [x] Stats display com progress bars (hunger, happiness, energy)
+- [x] Design mobile-first (top bar, centered content, action buttons)
+- [x] Disabled states para botões (baseado em stats)
+
 ## Phase 23: PetTeams Smart Contract (FUTURE)
 - [ ] Design contrato ERC-721 para gerenciamento de times
 - [ ] Implementar funções: createTeam, addPet, removePet, getTeam

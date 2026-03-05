@@ -1,266 +1,337 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { ArrowLeft, Heart, Shield, Zap, Wind, Brain, Sparkles } from "lucide-react";
-import { useLocation } from "wouter";
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useLocation } from 'wouter';
+import { ArrowLeft, Heart, Droplets, Utensils, Zap } from 'lucide-react';
 
-type Room = "Hall" | "Bedroom" | "Cozy" | "Medsroom" | "Playroom" | "Breedroom";
+type PetMood = 'happy' | 'neutral' | 'sad' | 'tired';
 
-interface RoomConfig {
-  name: Room;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-  bgGradient: string;
-  effects: {
-    hp?: number;
-    attack?: number;
-    defense?: number;
-    speed?: number;
-    spAtk?: number;
-    spDef?: number;
-  };
+interface PetState {
+  hunger: number; // 0-100
+  happiness: number; // 0-100
+  energy: number; // 0-100
+  mood: PetMood;
 }
 
-const ROOMS: RoomConfig[] = [
-  {
-    name: "Hall",
-    description: "Central hub - balanced stats boost",
-    icon: <Sparkles className="w-8 h-8" />,
-    color: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-900/20 to-pink-900/20",
-    effects: { hp: 5, attack: 3, defense: 3, speed: 2, spAtk: 3, spDef: 3 },
-  },
-  {
-    name: "Bedroom",
-    description: "Rest and recovery - HP boost",
-    icon: <Heart className="w-8 h-8" />,
-    color: "from-red-500 to-orange-500",
-    bgGradient: "from-red-900/20 to-orange-900/20",
-    effects: { hp: 15, defense: 2 },
-  },
-  {
-    name: "Cozy",
-    description: "Comfort zone - special defense boost",
-    icon: <Shield className="w-8 h-8" />,
-    color: "from-blue-500 to-cyan-500",
-    bgGradient: "from-blue-900/20 to-cyan-900/20",
-    effects: { defense: 10, spDef: 8 },
-  },
-  {
-    name: "Medsroom",
-    description: "Medical care - special attack boost",
-    icon: <Zap className="w-8 h-8" />,
-    color: "from-yellow-500 to-lime-500",
-    bgGradient: "from-yellow-900/20 to-lime-900/20",
-    effects: { spAtk: 12, hp: 5 },
-  },
-  {
-    name: "Playroom",
-    description: "Training ground - speed and attack boost",
-    icon: <Wind className="w-8 h-8" />,
-    color: "from-green-500 to-emerald-500",
-    bgGradient: "from-green-900/20 to-emerald-900/20",
-    effects: { speed: 10, attack: 8 },
-  },
-  {
-    name: "Breedroom",
-    description: "Breeding chamber - balanced power boost",
-    icon: <Brain className="w-8 h-8" />,
-    color: "from-indigo-500 to-violet-500",
-    bgGradient: "from-indigo-900/20 to-violet-900/20",
-    effects: { attack: 6, spAtk: 6, defense: 4, spDef: 4 },
-  },
-];
+const getMoodEmoji = (mood: PetMood): string => {
+  switch (mood) {
+    case 'happy': return '😊';
+    case 'neutral': return '😐';
+    case 'sad': return '😢';
+    case 'tired': return '😴';
+  }
+};
 
+const getMoodColor = (mood: PetMood): string => {
+  switch (mood) {
+    case 'happy': return 'text-neon-green';
+    case 'neutral': return 'text-neon-cyan';
+    case 'sad': return 'text-red-400';
+    case 'tired': return 'text-purple-400';
+  }
+};
+
+/**
+ * Care Screen - Tamagotchi-style pet care (2010s mobile app aesthetic)
+ */
 export default function Care() {
-  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [, navigate] = useLocation();
+  const [petState, setPetState] = useState<PetState>({
+    hunger: 50,
+    happiness: 70,
+    energy: 60,
+    mood: 'neutral',
+  });
+  const [petAnimating, setPetAnimating] = useState(false);
+  const [feedbackText, setFeedbackText] = useState('');
 
-  const handleRoomSelect = (room: Room) => {
-    setSelectedRoom(room);
+  // Calculate mood based on stats
+  useEffect(() => {
+    let newMood: PetMood = 'neutral';
+    if (petState.energy < 20) {
+      newMood = 'tired';
+    } else if (petState.hunger > 80) {
+      newMood = 'sad';
+    } else if (petState.happiness > 80 && petState.hunger < 40) {
+      newMood = 'happy';
+    }
+    setPetState((prev) => ({ ...prev, mood: newMood }));
+  }, [petState.hunger, petState.happiness, petState.energy]);
+
+  const showFeedback = (text: string) => {
+    setFeedbackText(text);
+    setTimeout(() => setFeedbackText(''), 2000);
   };
 
-  const handleBack = () => {
-    navigate("/dashboard");
+  const feed = () => {
+    setPetAnimating(true);
+    setPetState((prev) => ({
+      ...prev,
+      hunger: Math.max(0, prev.hunger - 30),
+      happiness: Math.min(100, prev.happiness + 10),
+    }));
+    showFeedback('Nom nom! 😋');
+    setTimeout(() => setPetAnimating(false), 500);
   };
 
-  const selectedRoomConfig = ROOMS.find(r => r.name === selectedRoom);
+  const play = () => {
+    setPetAnimating(true);
+    setPetState((prev) => ({
+      ...prev,
+      happiness: Math.min(100, prev.happiness + 25),
+      energy: Math.max(0, prev.energy - 20),
+      hunger: Math.min(100, prev.hunger + 15),
+    }));
+    showFeedback('Wheee! 🎉');
+    setTimeout(() => setPetAnimating(false), 500);
+  };
+
+  const sleep = () => {
+    setPetAnimating(true);
+    setPetState((prev) => ({
+      ...prev,
+      energy: 100,
+      hunger: Math.min(100, prev.hunger + 10),
+    }));
+    showFeedback('Zzzzz... 😴');
+    setTimeout(() => setPetAnimating(false), 1500);
+  };
+
+  const pet = () => {
+    setPetAnimating(true);
+    setPetState((prev) => ({
+      ...prev,
+      happiness: Math.min(100, prev.happiness + 15),
+    }));
+    showFeedback('Purr! 💕');
+    setTimeout(() => setPetAnimating(false), 400);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white p-4">
-      {/* Header */}
+    <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 flex flex-col">
+      {/* Top bar */}
       <motion.div
+        className="flex items-center justify-between px-4 py-3 border-b border-neon-cyan/20 bg-black/40 backdrop-blur-sm"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
       >
-        <Button
-          onClick={handleBack}
-          variant="ghost"
-          className="mb-4 text-cyan-400 hover:text-cyan-300"
+        <motion.button
+          onClick={() => navigate('/dashboard')}
+          className="p-2 hover:bg-neon-cyan/10 rounded-lg transition-all"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Dashboard
-        </Button>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-          Care Rooms
-        </h1>
-        <p className="text-gray-400 mt-2">Select a room to boost your Axolotl's stats</p>
+          <ArrowLeft className="w-5 h-5 text-neon-cyan" />
+        </motion.button>
+        <h1 className="text-lg font-bold text-neon-cyan">CARE</h1>
+        <div className="w-9" />
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Room Selector */}
+      {/* Main content */}
+      <motion.div
+        className="flex-1 flex flex-col items-center justify-between px-4 py-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Pet display area */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="space-y-4"
+          className="text-center"
+          variants={itemVariants}
         >
-          <h2 className="text-2xl font-bold text-cyan-400 mb-4">Available Rooms</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {ROOMS.map(room => (
-              <motion.button
-                key={room.name}
-                onClick={() => handleRoomSelect(room.name)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  selectedRoom === room.name
-                    ? `border-cyan-400 bg-gradient-to-br ${room.bgGradient} shadow-lg shadow-cyan-500/50`
-                    : "border-gray-600 hover:border-cyan-400 bg-slate-900/50"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <div className={`text-${room.color.split("-")[1]}-400`}>
-                    {room.icon}
-                  </div>
-                  <span className="font-bold text-sm">{room.name}</span>
-                </div>
-                <p className="text-xs text-gray-400">{room.description}</p>
-              </motion.button>
-            ))}
+          <div className="text-sm text-gray-400 mb-2">Your Axolotl</div>
+          <motion.div
+            className="text-8xl mb-4 cursor-pointer"
+            animate={
+              petAnimating
+                ? {
+                    y: [0, -20, 0],
+                    rotate: [0, -5, 5, 0],
+                    scale: [1, 1.1, 1],
+                  }
+                : { y: 0 }
+            }
+            transition={{ duration: 0.5 }}
+            onClick={pet}
+          >
+            🦎
+          </motion.div>
+          <motion.div
+            className={`text-5xl ${getMoodColor(petState.mood)}`}
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+          >
+            {getMoodEmoji(petState.mood)}
+          </motion.div>
+
+          {/* Feedback text */}
+          {feedbackText && (
+            <motion.div
+              className="text-2xl mt-4 font-bold text-neon-green"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+            >
+              {feedbackText}
+            </motion.div>
+          )}
+        </motion.div>
+
+        {/* Stats display */}
+        <motion.div
+          className="w-full max-w-sm space-y-3"
+          variants={itemVariants}
+        >
+          {/* Hunger */}
+          <div className="bg-black/40 border border-neon-cyan/30 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Utensils className="w-4 h-4 text-orange-400" />
+                <span className="text-sm font-bold text-gray-300">Hunger</span>
+              </div>
+              <span className="text-sm text-gray-400">{petState.hunger}%</span>
+            </div>
+            <div className="w-full bg-black/60 rounded-full h-2 overflow-hidden">
+              <motion.div
+                className="bg-gradient-to-r from-orange-500 to-red-500 h-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${petState.hunger}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+
+          {/* Happiness */}
+          <div className="bg-black/40 border border-neon-cyan/30 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Heart className="w-4 h-4 text-pink-400" />
+                <span className="text-sm font-bold text-gray-300">Happiness</span>
+              </div>
+              <span className="text-sm text-gray-400">{petState.happiness}%</span>
+            </div>
+            <div className="w-full bg-black/60 rounded-full h-2 overflow-hidden">
+              <motion.div
+                className="bg-gradient-to-r from-pink-500 to-neon-pink h-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${petState.happiness}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+
+          {/* Energy */}
+          <div className="bg-black/40 border border-neon-cyan/30 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-yellow-400" />
+                <span className="text-sm font-bold text-gray-300">Energy</span>
+              </div>
+              <span className="text-sm text-gray-400">{petState.energy}%</span>
+            </div>
+            <div className="w-full bg-black/60 rounded-full h-2 overflow-hidden">
+              <motion.div
+                className="bg-gradient-to-r from-yellow-500 to-neon-green h-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${petState.energy}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
           </div>
         </motion.div>
 
-        {/* Room Details */}
-        {selectedRoomConfig && (
-          <motion.div
-            key={selectedRoom}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            className="space-y-4"
+        {/* Action buttons */}
+        <motion.div
+          className="w-full max-w-sm grid grid-cols-2 gap-3"
+          variants={itemVariants}
+        >
+          <motion.button
+            onClick={feed}
+            disabled={petState.hunger < 20}
+            className="p-4 rounded-lg bg-gradient-to-br from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <h2 className="text-2xl font-bold text-cyan-400 mb-4">
-              {selectedRoomConfig.name} Effects
-            </h2>
+            <div className="text-2xl mb-1">🍖</div>
+            <div className="text-xs">Feed</div>
+          </motion.button>
 
-            <Card className="bg-slate-900/80 border-cyan-500/30 p-6">
-              <div className="space-y-4">
-                {/* Room Icon and Name */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div
-                    className={`p-4 rounded-lg bg-gradient-to-br ${selectedRoomConfig.color} text-white`}
-                  >
-                    {selectedRoomConfig.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold">{selectedRoomConfig.name}</h3>
-                    <p className="text-gray-400">{selectedRoomConfig.description}</p>
-                  </div>
-                </div>
-
-                {/* Stats Effects */}
-                <div className="space-y-3">
-                  <h4 className="text-lg font-bold text-pink-400">Stat Boosts:</h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    {selectedRoomConfig.effects.hp && (
-                      <div className="bg-red-900/30 border border-red-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">HP</div>
-                        <div className="text-xl font-bold text-red-400">
-                          +{selectedRoomConfig.effects.hp}
-                        </div>
-                      </div>
-                    )}
-                    {selectedRoomConfig.effects.attack && (
-                      <div className="bg-orange-900/30 border border-orange-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">Attack</div>
-                        <div className="text-xl font-bold text-orange-400">
-                          +{selectedRoomConfig.effects.attack}
-                        </div>
-                      </div>
-                    )}
-                    {selectedRoomConfig.effects.defense && (
-                      <div className="bg-blue-900/30 border border-blue-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">Defense</div>
-                        <div className="text-xl font-bold text-blue-400">
-                          +{selectedRoomConfig.effects.defense}
-                        </div>
-                      </div>
-                    )}
-                    {selectedRoomConfig.effects.speed && (
-                      <div className="bg-yellow-900/30 border border-yellow-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">Speed</div>
-                        <div className="text-xl font-bold text-yellow-400">
-                          +{selectedRoomConfig.effects.speed}
-                        </div>
-                      </div>
-                    )}
-                    {selectedRoomConfig.effects.spAtk && (
-                      <div className="bg-purple-900/30 border border-purple-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">Sp. Atk</div>
-                        <div className="text-xl font-bold text-purple-400">
-                          +{selectedRoomConfig.effects.spAtk}
-                        </div>
-                      </div>
-                    )}
-                    {selectedRoomConfig.effects.spDef && (
-                      <div className="bg-cyan-900/30 border border-cyan-500/50 rounded p-3">
-                        <div className="text-sm text-gray-400">Sp. Def</div>
-                        <div className="text-xl font-bold text-cyan-400">
-                          +{selectedRoomConfig.effects.spDef}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Action Button */}
-                <Button
-                  onClick={() => {
-                    // TODO: Apply room effects to selected pet
-                    console.log(`Applied ${selectedRoomConfig.name} effects`);
-                  }}
-                  className="w-full mt-6 bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-600 hover:to-pink-600 text-white font-bold py-3 rounded-lg"
-                >
-                  Apply Room Effects
-                </Button>
-              </div>
-            </Card>
-
-            {/* Room Info */}
-            <Card className="bg-slate-900/80 border-purple-500/30 p-4">
-              <p className="text-sm text-gray-400">
-                💡 <strong>Tip:</strong> Each room provides different stat boosts. Visit regularly to maximize your Axolotl's potential!
-              </p>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Empty State */}
-        {!selectedRoom && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center justify-center"
+          <motion.button
+            onClick={play}
+            disabled={petState.energy < 30}
+            className="p-4 rounded-lg bg-gradient-to-br from-pink-600 to-pink-700 hover:from-pink-500 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <Card className="bg-slate-900/80 border-gray-600 p-8 text-center">
-              <Sparkles className="w-12 h-12 mx-auto mb-4 text-gray-500" />
-              <p className="text-gray-400">Select a room to see its effects</p>
-            </Card>
-          </motion.div>
-        )}
+            <div className="text-2xl mb-1">🎮</div>
+            <div className="text-xs">Play</div>
+          </motion.button>
+
+          <motion.button
+            onClick={sleep}
+            disabled={petState.energy > 90}
+            className="p-4 rounded-lg bg-gradient-to-br from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="text-2xl mb-1">😴</div>
+            <div className="text-xs">Sleep</div>
+          </motion.button>
+
+          <motion.button
+            onClick={pet}
+            className="p-4 rounded-lg bg-gradient-to-br from-neon-cyan to-blue-600 hover:from-neon-cyan hover:to-blue-500 transition-all font-bold text-white"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="text-2xl mb-1">👋</div>
+            <div className="text-xs">Pet</div>
+          </motion.button>
+        </motion.div>
+
+        {/* Bottom tip */}
+        <motion.div
+          className="text-center text-xs text-gray-500"
+          variants={itemVariants}
+        >
+          <p>Tap the pet to pet it! 💕</p>
+        </motion.div>
+      </motion.div>
+
+      {/* Floating particles */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {[...Array(2)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-neon-cyan rounded-full"
+            animate={{
+              x: [0, Math.random() * 200 - 100],
+              y: [0, Math.random() * 300 - 150],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
       </div>
     </div>
   );
