@@ -30,11 +30,47 @@ const getRoomColor = (room: RoomType): string => {
   }
 };
 
+const getRoomBackground = (room: RoomType): string => {
+  switch (room) {
+    case 'Hall':
+      return 'from-slate-950 via-purple-950 to-slate-950';
+    case 'Bedroom':
+      return 'from-slate-950 via-blue-950 to-indigo-950';
+    case 'Cozy':
+      return 'from-orange-950 via-amber-950 to-yellow-950';
+    case 'Medsroom':
+      return 'from-slate-950 via-green-950 to-emerald-950';
+    case 'Playroom':
+      return 'from-slate-950 via-pink-950 to-rose-950';
+    case 'Breedroom':
+      return 'from-yellow-950 via-amber-950 to-orange-950';
+  }
+};
+
+const getRoomSpecialAction = (room: RoomType): { name: string; emoji: string; bonus: string } => {
+  switch (room) {
+    case 'Hall':
+      return { name: 'Explore', emoji: '🔍', bonus: '+10 XP' };
+    case 'Bedroom':
+      return { name: 'Rest', emoji: '😴', bonus: '+30 Energy' };
+    case 'Cozy':
+      return { name: 'Relax', emoji: '🧘', bonus: '+20 Happiness' };
+    case 'Medsroom':
+      return { name: 'Heal', emoji: '💊', bonus: 'Full HP' };
+    case 'Playroom':
+      return { name: 'Play', emoji: '🎮', bonus: '+25 Happiness' };
+    case 'Breedroom':
+      return { name: 'Breed', emoji: '🥚', bonus: '+50 XP' };
+  }
+};
+
 interface PetState {
   hunger: number; // 0-100
   happiness: number; // 0-100
   energy: number; // 0-100
   mood: PetMood;
+  hp?: number; // 0-100
+  maxHp?: number;
 }
 
 const getMoodEmoji = (mood: PetMood): string => {
@@ -176,6 +212,43 @@ export default function Care() {
     setTimeout(() => setPetAnimating(false), 400);
   };
 
+  const executeRoomAction = () => {
+    const action = getRoomSpecialAction(currentRoom);
+    setPetAnimating(true);
+
+    setPetState((prev) => {
+      let newState = { ...prev };
+
+      switch (currentRoom) {
+        case 'Hall':
+          newState.hp = Math.min(100, (newState.hp || 100) + 10);
+          break;
+        case 'Bedroom':
+          newState.energy = Math.min(100, prev.energy + 30);
+          break;
+        case 'Cozy':
+          newState.happiness = Math.min(100, prev.happiness + 20);
+          break;
+        case 'Medsroom':
+          newState.hp = 100;
+          break;
+        case 'Playroom':
+          newState.happiness = Math.min(100, prev.happiness + 25);
+          newState.energy = Math.max(0, prev.energy - 15);
+          break;
+        case 'Breedroom':
+          newState.happiness = Math.min(100, prev.happiness + 10);
+          break;
+      }
+
+      savePetState(newState);
+      return newState;
+    });
+
+    showFeedback(`${action.emoji} ${action.name}! ${action.bonus}`);
+    setTimeout(() => setPetAnimating(false), 600);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -190,7 +263,12 @@ export default function Care() {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-950 via-purple-950 to-slate-950 flex flex-col">
+    <motion.div
+      className={`relative w-full min-h-screen bg-gradient-to-b ${getRoomBackground(currentRoom)} flex flex-col`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* Top bar with room selector */}
       <motion.div
         className="border-b border-neon-cyan/20 bg-black/40 backdrop-blur-sm"
@@ -360,6 +438,23 @@ export default function Care() {
           </div>
         </motion.div>
 
+        {/* Room Special Action Button */}
+        <motion.div
+          className="w-full max-w-sm"
+          variants={itemVariants}
+        >
+          <motion.button
+            onClick={executeRoomAction}
+            className="w-full p-4 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-green hover:from-neon-cyan hover:to-neon-green text-black font-bold transition-all mb-4"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="text-2xl mb-1">{getRoomSpecialAction(currentRoom).emoji}</div>
+            <div className="text-sm">{getRoomSpecialAction(currentRoom).name}</div>
+            <div className="text-xs opacity-80">{getRoomSpecialAction(currentRoom).bonus}</div>
+          </motion.button>
+        </motion.div>
+
         {/* Action buttons */}
         <motion.div
           className="w-full max-w-sm grid grid-cols-2 gap-3"
@@ -441,6 +536,6 @@ export default function Care() {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
