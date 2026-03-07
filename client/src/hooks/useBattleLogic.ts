@@ -1,15 +1,18 @@
 import { useState, useCallback } from 'react';
 import { Move } from '@shared/types';
+import { ElementalType, calculateFinalDamage, getTypeMatchupDescription } from '@/lib/elementalTypes';
 
 export interface BattleState {
   playerHP: number;
   playerEnergy: number;
   playerMaxHP: number;
   playerMaxEnergy: number;
+  playerType: ElementalType;
   enemyHP: number;
   enemyEnergy: number;
   enemyMaxHP: number;
   enemyMaxEnergy: number;
+  enemyType: ElementalType;
   selectedMove: Move | null;
   enemySelectedMove: Move | null;
   battleLog: string[];
@@ -23,10 +26,12 @@ const INITIAL_STATE: BattleState = {
   playerEnergy: 5,
   playerMaxHP: 100,
   playerMaxEnergy: 5,
+  playerType: 'Water',
   enemyHP: 100,
   enemyEnergy: 5,
   enemyMaxHP: 100,
   enemyMaxEnergy: 5,
+  enemyType: 'Fire',
   selectedMove: null,
   enemySelectedMove: null,
   battleLog: ['Battle started!'],
@@ -35,8 +40,9 @@ const INITIAL_STATE: BattleState = {
   winner: null,
 };
 
-export const useBattleLogic = () => {
-  const [state, setState] = useState<BattleState>(INITIAL_STATE);
+export const useBattleLogic = (playerType: ElementalType = 'Water', enemyType: ElementalType = 'Fire') => {
+  const initialState = { ...INITIAL_STATE, playerType, enemyType };
+  const [state, setState] = useState<BattleState>(initialState);
 
   // AI chooses random move
   const getAIMove = useCallback((availableMoves: Move[]): Move => {
@@ -57,9 +63,23 @@ export const useBattleLogic = () => {
       // Get AI move
       const aiMove = getAIMove(availableMoves);
 
-      // Calculate damage (simple formula: base damage with some variance)
-      const playerDamage = move.damage + Math.floor(Math.random() * 10 - 5);
-      const aiDamage = aiMove.damage + Math.floor(Math.random() * 10 - 5);
+      // Calculate damage with type matching and STAB
+      const playerDamage = calculateFinalDamage(
+        move.damage,
+        prev.playerType,
+        prev.playerType,
+        prev.enemyType
+      );
+      const aiDamage = calculateFinalDamage(
+        aiMove.damage,
+        prev.enemyType,
+        prev.enemyType,
+        prev.playerType
+      );
+
+      // Get type matchup descriptions
+      const playerTypeDesc = getTypeMatchupDescription(prev.playerType, prev.enemyType);
+      const enemyTypeDesc = getTypeMatchupDescription(prev.enemyType, prev.playerType);
 
       // Apply damage
       let newEnemyHP = prev.enemyHP - playerDamage;
@@ -80,8 +100,8 @@ export const useBattleLogic = () => {
       // Build battle log
       const newLog = [
         ...prev.battleLog,
-        `You used ${move.name}! Dealt ${playerDamage} damage!`,
-        `Enemy used ${aiMove.name}! Dealt ${aiDamage} damage!`,
+        `You used ${move.name}! Dealt ${playerDamage} damage! ${playerTypeDesc}`,
+        `Enemy used ${aiMove.name}! Dealt ${aiDamage} damage! ${enemyTypeDesc}`,
       ];
 
       // Check if battle ended
@@ -120,12 +140,14 @@ export const useBattleLogic = () => {
 
   // Reset battle
   const resetBattle = useCallback(() => {
-    setState(INITIAL_STATE);
-  }, []);
+    setState(initialState);
+  }, [initialState]);
 
   return {
     state,
     selectMove,
     resetBattle,
+    playerType,
+    enemyType,
   };
 };

@@ -359,3 +359,102 @@
 - [x] Add rota /breed ao App.tsx
 - [x] Criar 12 testes para sistema de breeding
 - [x] Adicionar botão Breed ao DemoHub
+
+## Phase 35: Elementary Types & Type Match-ups System (IN PROGRESS)
+- [ ] Adicionar tipos elementares aos Axolotls (Water, Fire, Grass, Electric, Psychic, Dark)
+- [ ] Criar tabela de type match-ups (super effective, not very effective, neutral)
+- [ ] Implementar sistema de STAB (Same Type Attack Bonus)
+- [ ] Atualizar battle simulator com cálculo de dano baseado em types
+- [ ] Adicionar visualização de tipos na UI de batalha
+- [ ] Criar testes para type match-ups
+- [ ] Atualizar mock data com tipos elementares
+
+## Phase 36: Changelog & Project Delivery (IN PROGRESS)
+- [ ] Ler git log e extrair checkpoints adicionados
+- [ ] Criar CHANGELOG.md com histórico de features
+- [ ] Fazer zip do projeto com .git
+- [ ] Fazer upload via manus-upload-file
+
+
+## FEATURES EM DEMO/LOCALSTORAGE - PENDENTES DE SOLIDITY IMPLEMENTATION
+
+### Breeding System (Cruzamento)
+- [ ] Implementar função breedAxolotls no contrato AxolotlNFT
+- [ ] Mintar offspring como novo NFT após breeding
+- [ ] Aplicar cooldown de reprodução on-chain
+- [ ] Armazenar genes e traits no contrato
+- [ ] Validar compatibilidade no contrato
+- [ ] Emitir evento BreedingSuccess com offspring data
+
+### PetItems System (Itens)
+- [ ] Implementar mintItem no contrato PetItems
+- [ ] Implementar burnItem para consumir itens
+- [ ] Adicionar função useItem que aplica efeitos ao Axolotl
+- [ ] Conectar PetItemsDex ao PetItems para validação
+- [ ] Implementar transferência de itens entre players
+- [ ] Adicionar eventos de item usage
+
+### Shop System (Loja)
+- [ ] Implementar função buyItem no contrato Shop
+- [ ] Validar saldo de LIP tokens antes de compra
+- [ ] Transferir LIP tokens e mintar item
+- [ ] Adicionar sistema de preços dinâmicos
+- [ ] Implementar histórico de compras
+- [ ] Adicionar eventos de compra
+
+### Battle XP System (Experiência em Batalhas)
+- [ ] Integrar XP ganho em batalhas ao contrato AxolotlNFT
+- [ ] Aplicar auto-evolução on-chain (Axolol → Axolump → Axoloot)
+- [ ] Armazenar XP e level no contrato
+- [ ] Emitir eventos de level-up e evolução
+- [ ] Validar requisitos de evolução no contrato
+
+### Teams System (Times)
+- [ ] Implementar createTeam no contrato PetTeams
+- [ ] Implementar addPetToTeam com validações
+- [ ] Armazenar composição de time on-chain
+- [ ] Implementar recordBattle para histórico
+- [ ] Adicionar sistema de ranking de times
+- [ ] Emitir eventos de team creation e updates
+
+### Pet Care State (Estado do Pet)
+- [ ] Implementar updatePetStats no contrato AxolotlNFT
+- [ ] Armazenar hunger, happiness, energy on-chain
+- [ ] Aplicar decay de stats ao longo do tempo
+- [ ] Implementar função feedPet, playPet, sleepPet
+- [ ] Adicionar efeitos de room actions on-chain
+- [ ] Emitir eventos de stat changes
+
+### Battle Simulator (Simulador de Batalha)
+- [ ] Implementar função battle no contrato Battle
+- [ ] Validar type matching e STAB on-chain
+- [ ] Calcular dano final no contrato
+- [ ] Armazenar histórico de batalhas
+- [ ] Implementar sistema de rating/ELO
+- [ ] Distribuir rewards (XP, LIP tokens) ao vencedor
+- [ ] Emitir eventos de battle results
+
+### Marketplace (Mercado)
+- [ ] Implementar listItem para vender Axolotls
+- [ ] Implementar buyListing para comprar
+- [ ] Adicionar sistema de leilão
+- [ ] Implementar ofertas entre players
+- [ ] Armazenar histórico de transações
+- [ ] Adicionar taxa de marketplace (%)
+- [ ] Emitir eventos de marketplace transactions
+
+### Pet Gallery (Galeria de Pets)
+- [ ] Implementar getOwnedAxolotls no contrato
+- [ ] Adicionar função para visualizar pets de outros players
+- [ ] Implementar filtros por type, rarity, level
+- [ ] Adicionar sistema de favoritos
+- [ ] Implementar compartilhamento de pets
+- [ ] Adicionar estatísticas por player
+
+### Bag/Inventory System (Inventário)
+- [ ] Implementar getInventory no contrato PetItems
+- [ ] Adicionar limite de slots de inventário
+- [ ] Implementar expandInventory (compra de slots)
+- [ ] Adicionar sistema de organização (sorting, filtering)
+- [ ] Implementar troca de itens entre players
+- [ ] Emitir eventos de inventory changes
