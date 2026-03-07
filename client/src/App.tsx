@@ -14,6 +14,7 @@ import DemoHub from "@/pages/DemoHub";
 import Teams from "@/pages/Teams";
 import Bag from "@/pages/Bag";
 import Shop from "@/pages/Shop";
+import Breed from "@/pages/Breed";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/teams" component={Teams} />
       <Route path="/bag" component={Bag} />
       <Route path="/shop" component={Shop} />
+      <Route path="/breed" component={Breed} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

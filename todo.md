@@ -343,3 +343,19 @@
 - [x] Add rota /shop ao App.tsx
 - [x] Item details panel com descrição completa
 - [x] Animações de purchase com sparkle emoji
+
+## Phase 34: Breeding System - Genetics & Inheritance (COMPLETED)
+- [x] Criar sistema de genética com traits herdáveis (color, pattern, size, ability)
+- [x] Implementar algoritmo de herança Mendeliana (dominant/recessive traits)
+- [x] Criar hook useBreedingLogic para gerenciar cruzamento
+- [x] Implementar cálculo de compatibilidade entre pais
+- [x] Adicionar cooldown de reprodução (breeding cooldown)
+- [x] Criar Breed Screen (/breed) com seletor de pais
+- [x] Implementar UI para visualizar traits dos pais
+- [x] Adicionar preview do offspring potencial
+- [x] Implementar animações de breeding e eclosion (egg hatching)
+- [x] Adicionar custo de breeding (500 LIP tokens)
+- [x] Persistir offspring em localStorage
+- [x] Add rota /breed ao App.tsx
+- [x] Criar 12 testes para sistema de breeding
+- [x] Adicionar botão Breed ao DemoHub

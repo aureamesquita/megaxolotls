@@ -60,6 +60,14 @@ export default function DemoHub() {
       color: 'from-indigo-500 to-cyan-500',
       action: () => setLocation('/shop'),
     },
+    {
+      id: 'breed',
+      title: 'Breed',
+      emoji: '❤️',
+      description: 'Create offspring',
+      color: 'from-pink-500 to-rose-500',
+      action: () => setLocation('/breed'),
+    },
   ];
 
   const containerVariants = {
