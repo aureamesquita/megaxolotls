@@ -52,6 +52,14 @@ export default function DemoHub() {
       color: 'from-yellow-500 to-orange-500',
       action: () => setLocation('/bag'),
     },
+    {
+      id: 'shop',
+      title: 'Shop',
+      emoji: '📐',
+      description: 'Buy items & equipment',
+      color: 'from-indigo-500 to-cyan-500',
+      action: () => setLocation('/shop'),
+    },
   ];
 
   const containerVariants = {

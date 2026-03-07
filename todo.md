@@ -330,3 +330,16 @@
 - [ ] Deploy contrato PetItemsDex no MegaETH testnet
 - [ ] Deploy contrato PetItems no MegaETH testnet
 - [ ] Integrar Web3 hooks para interagir com contratos
+
+## Phase 33: Shop Screen - Item Store (COMPLETED)
+- [x] Criar página /shop com grid de itens para compra
+- [x] Exibir itens com preço em LIP tokens
+- [x] Implementar sistema de compra com validação de saldo
+- [x] Adicionar feedback visual (animações, check mark de compra)
+- [x] Mostrar saldo de LIP tokens no header
+- [x] Integrar ao DemoHub (botão Shop)
+- [x] Mock data com 10 itens para compra (3 categorias: consumable, equipment, axolotl)
+- [x] Preparar estrutura para compra de Axolotls (futuro)
+- [x] Add rota /shop ao App.tsx
+- [x] Item details panel com descrição completa
+- [x] Animações de purchase com sparkle emoji
