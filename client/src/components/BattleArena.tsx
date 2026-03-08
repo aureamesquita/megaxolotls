@@ -1,17 +1,106 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Move } from '@shared/types';
-import { useBattleLogic } from '@/hooks/useBattleLogic';
-import { MoveCardDetail } from './MoveCardDetail';
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { Move } from "@shared/types";
+import { useBattleLogic } from "@/hooks/useBattleLogic";
+import { MoveCardDetail } from "./MoveCardDetail";
+import { DamagePopup, ParticleEffect } from "./ParticleEffect";
+import { ElementalType18 } from "@/lib/elementalTypes18";
 
 interface BattleArenaProps {
   availableMoves: Move[];
-  onBattleEnd?: (winner: 'player' | 'enemy' | 'draw' | null) => void;
+  onBattleEnd?: (winner: "player" | "enemy" | "draw" | null) => void;
 }
 
-export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBattleEnd }) => {
+export const BattleArena: React.FC<BattleArenaProps> = ({
+  availableMoves,
+  onBattleEnd,
+}) => {
   const { state, selectMove, resetBattle } = useBattleLogic();
-  const [selectedMoveDetail, setSelectedMoveDetail] = useState<Move | null>(null);
+  const [selectedMoveDetail, setSelectedMoveDetail] = useState<Move | null>(
+    null
+  );
+  const [particleBursts, setParticleBursts] = useState<
+    Array<{ id: string; x: number; y: number; type: ElementalType18 }>
+  >([]);
+  const [damagePopups, setDamagePopups] = useState<
+    Array<{ id: string; x: number; y: number; damage: number }>
+  >([]);
+  const previousStateRef = useRef(state);
+
+  const toParticleType = (move?: Move | null): ElementalType18 => {
+    const element = move?.elementalType;
+    if (
+      element === "water" ||
+      element === "fire" ||
+      element === "grass" ||
+      element === "electric" ||
+      element === "ice"
+    ) {
+      return element;
+    }
+    return "shadow";
+  };
+
+  useEffect(() => {
+    if (
+      state.selectedMove !== previousStateRef.current.selectedMove &&
+      state.selectedMove
+    ) {
+      const playerDamage = Math.max(
+        0,
+        Math.round(previousStateRef.current.enemyHP - state.enemyHP)
+      );
+      const enemyDamage = Math.max(
+        0,
+        Math.round(previousStateRef.current.playerHP - state.playerHP)
+      );
+      const turnId = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+      if (playerDamage > 0) {
+        setParticleBursts(prev => [
+          ...prev,
+          {
+            id: `${turnId}-player`,
+            x: window.innerWidth * 0.74,
+            y: window.innerHeight * 0.38,
+            type: toParticleType(state.selectedMove),
+          },
+        ]);
+        setDamagePopups(prev => [
+          ...prev,
+          {
+            id: `${turnId}-player`,
+            x: window.innerWidth * 0.72,
+            y: window.innerHeight * 0.32,
+            damage: playerDamage,
+          },
+        ]);
+      }
+
+      if (enemyDamage > 0) {
+        setParticleBursts(prev => [
+          ...prev,
+          {
+            id: `${turnId}-enemy`,
+            x: window.innerWidth * 0.26,
+            y: window.innerHeight * 0.38,
+            type: toParticleType(state.enemySelectedMove),
+          },
+        ]);
+        setDamagePopups(prev => [
+          ...prev,
+          {
+            id: `${turnId}-enemy`,
+            x: window.innerWidth * 0.24,
+            y: window.innerHeight * 0.32,
+            damage: enemyDamage,
+          },
+        ]);
+      }
+    }
+
+    previousStateRef.current = state;
+  }, [state]);
 
   const handleMoveClick = (move: Move) => {
     if (!state.battleEnded) {
@@ -26,21 +115,51 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
   // Calculate bar widths
   const playerHPPercent = (state.playerHP / state.playerMaxHP) * 100;
   const enemyHPPercent = (state.enemyHP / state.enemyMaxHP) * 100;
-  const playerEnergyPercent = (state.playerEnergy / state.playerMaxEnergy) * 100;
+  const playerEnergyPercent =
+    (state.playerEnergy / state.playerMaxEnergy) * 100;
   const enemyEnergyPercent = (state.enemyEnergy / state.enemyMaxEnergy) * 100;
 
   return (
     <div className="w-full">
       {/* Battle Arena */}
-      <div className="mb-8 p-6 bg-black/40 border border-neon-cyan/30 rounded-lg backdrop-blur">
+      <div className="relative mb-8 p-6 bg-black/40 border border-neon-cyan/30 rounded-lg backdrop-blur">
+        {particleBursts.map(burst => (
+          <ParticleEffect
+            key={burst.id}
+            type={burst.type}
+            x={burst.x}
+            y={burst.y}
+            onComplete={() =>
+              setParticleBursts(prev =>
+                prev.filter(item => item.id !== burst.id)
+              )
+            }
+          />
+        ))}
+
+        {damagePopups.map(popup => (
+          <DamagePopup
+            key={popup.id}
+            damage={popup.damage}
+            x={popup.x}
+            y={popup.y}
+            onComplete={() =>
+              setDamagePopups(prev => prev.filter(item => item.id !== popup.id))
+            }
+          />
+        ))}
         {/* Players Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
           {/* Player */}
           <div>
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-neon-cyan font-bold text-lg">Your Axolotl</h3>
-                <span className="px-3 py-1 rounded-full bg-blue-500/30 border border-blue-400 text-blue-300 text-xs font-bold">💧 Water</span>
+                <h3 className="text-neon-cyan font-bold text-lg">
+                  Your Axolotl
+                </h3>
+                <span className="px-3 py-1 rounded-full bg-blue-500/30 border border-blue-400 text-blue-300 text-xs font-bold">
+                  💧 Water
+                </span>
               </div>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
               {/* Player Axolotl Image */}
@@ -64,7 +183,7 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
               <div className="w-full h-6 bg-gray-800 rounded border border-neon-cyan/30 overflow-hidden">
                 <motion.div
                   className="h-full bg-gradient-to-r from-green-500 to-neon-cyan"
-                  initial={{ width: '100%' }}
+                  initial={{ width: "100%" }}
                   animate={{ width: `${playerHPPercent}%` }}
                   transition={{ duration: 0.5 }}
                 />
@@ -82,7 +201,7 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
               <div className="w-full h-4 bg-gray-800 rounded border border-neon-pink/30 overflow-hidden">
                 <motion.div
                   className="h-full bg-gradient-to-r from-yellow-500 to-neon-pink"
-                  initial={{ width: '100%' }}
+                  initial={{ width: "100%" }}
                   animate={{ width: `${playerEnergyPercent}%` }}
                   transition={{ duration: 0.5 }}
                 />
@@ -94,8 +213,12 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
           <div>
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-neon-pink font-bold text-lg">Enemy Axolotl</h3>
-                <span className="px-3 py-1 rounded-full bg-red-500/30 border border-red-400 text-red-300 text-xs font-bold">🔥 Fire</span>
+                <h3 className="text-neon-pink font-bold text-lg">
+                  Enemy Axolotl
+                </h3>
+                <span className="px-3 py-1 rounded-full bg-red-500/30 border border-red-400 text-red-300 text-xs font-bold">
+                  🔥 Fire
+                </span>
               </div>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
               {/* Enemy Axolotl Image */}
@@ -119,7 +242,7 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
               <div className="w-full h-6 bg-gray-800 rounded border border-neon-pink/30 overflow-hidden">
                 <motion.div
                   className="h-full bg-gradient-to-r from-red-500 to-neon-pink"
-                  initial={{ width: '100%' }}
+                  initial={{ width: "100%" }}
                   animate={{ width: `${enemyHPPercent}%` }}
                   transition={{ duration: 0.5 }}
                 />
@@ -137,7 +260,7 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
               <div className="w-full h-4 bg-gray-800 rounded border border-neon-green/30 overflow-hidden">
                 <motion.div
                   className="h-full bg-gradient-to-r from-yellow-500 to-neon-green"
-                  initial={{ width: '100%' }}
+                  initial={{ width: "100%" }}
                   animate={{ width: `${enemyEnergyPercent}%` }}
                   transition={{ duration: 0.5 }}
                 />
@@ -166,7 +289,7 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
         {/* Move Selection */}
         {!state.battleEnded && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {availableMoves.map((move) => (
+            {availableMoves.map(move => (
               <div key={move.id} className="relative">
                 <motion.button
                   onClick={() => handleMoveClick(move)}
@@ -175,18 +298,24 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <div className="text-sm font-bold text-neon-cyan mb-1">{move.name}</div>
-                  <div className="text-xs text-gray-300 mb-1">
-                    {move.elementalType === 'water' && '💧 Water'}
-                    {move.elementalType === 'fire' && '🔥 Fire'}
-                    {move.elementalType === 'grass' && '🌿 Grass'}
-                    {move.elementalType === 'electric' && '⚡ Electric'}
-                    {move.elementalType === 'ice' && '❄️ Ice'}
-                    {move.elementalType === 'normal' && '⭕ Normal'}
-                    {!move.elementalType && '⭕ Normal'}
+                  <div className="text-sm font-bold text-neon-cyan mb-1">
+                    {move.name}
                   </div>
-                  <div className="text-xs text-gray-400">DMG: {move.damage}</div>
-                  <div className="text-xs text-neon-pink">Cost: {move.energyCost}</div>
+                  <div className="text-xs text-gray-300 mb-1">
+                    {move.elementalType === "water" && "💧 Water"}
+                    {move.elementalType === "fire" && "🔥 Fire"}
+                    {move.elementalType === "grass" && "🌿 Grass"}
+                    {move.elementalType === "electric" && "⚡ Electric"}
+                    {move.elementalType === "ice" && "❄️ Ice"}
+                    {move.elementalType === "normal" && "⭕ Normal"}
+                    {!move.elementalType && "⭕ Normal"}
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    DMG: {move.damage}
+                  </div>
+                  <div className="text-xs text-neon-pink">
+                    Cost: {move.energyCost}
+                  </div>
                 </motion.button>
                 <button
                   onClick={() => setSelectedMoveDetail(move)}
@@ -201,7 +330,10 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
 
         {/* Move Detail Modal */}
         {selectedMoveDetail && (
-          <MoveCardDetail move={selectedMoveDetail} onClose={() => setSelectedMoveDetail(null)} />
+          <MoveCardDetail
+            move={selectedMoveDetail}
+            onClose={() => setSelectedMoveDetail(null)}
+          />
         )}
 
         {/* Battle End */}
@@ -213,14 +345,18 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
           >
             <h2
               className={`text-3xl font-bold mb-4 ${
-                state.winner === 'player'
-                  ? 'text-neon-green'
-                  : state.winner === 'enemy'
-                  ? 'text-neon-pink'
-                  : 'text-yellow-400'
+                state.winner === "player"
+                  ? "text-neon-green"
+                  : state.winner === "enemy"
+                    ? "text-neon-pink"
+                    : "text-yellow-400"
               }`}
             >
-              {state.winner === 'player' ? '🎉 VICTORY!' : state.winner === 'enemy' ? '💀 DEFEAT!' : '🤝 DRAW!'}
+              {state.winner === "player"
+                ? "🎉 VICTORY!"
+                : state.winner === "enemy"
+                  ? "💀 DEFEAT!"
+                  : "🤝 DRAW!"}
             </h2>
             <button
               onClick={handleReset}
