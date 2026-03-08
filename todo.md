@@ -472,3 +472,40 @@
 - [x] Adicionar feedback visual de sucesso/erro
 - [x] Funções: canBreed, getBreedingCooldown, getBreedableAxolotls
 - [x] 72 testes passando
+
+
+## Phase 38: 18 Elemental Types System (IN PROGRESS)
+- [ ] Expandir de 6 para 18 tipos elementares
+- [ ] Categorizar em: Químico (Borracha, Papel, Sal, Açúcar, Vidro), Físico (Areia, Terra, Água, Fogo, Gelo), Adicional (Elétrico, Grama, Psíquico, Dragão, Fada, Sombra)
+- [ ] Atualizar elementalTypes.ts com 18 tipos
+- [ ] Expandir type match-ups para 18x18
+- [ ] Atualizar BattleArena para exibir 18 tipos
+- [ ] Atualizar mockMoves para usar novos tipos
+
+## Phase 39: LIP Token Rewards System (IN PROGRESS)
+- [ ] Implementar sistema de emissão de LIP ao vencer batalhas
+- [ ] Validar elegibilidade (nível mínimo, cooldown)
+- [ ] Adicionar feedback visual de reward na battle end screen
+- [ ] Atualizar Dashboard com LIP balance em tempo real
+- [ ] Criar hook useLIPRewards para gerenciar rewards
+
+## Phase 40: Attack Animations with Particles (IN PROGRESS)
+- [ ] Adicionar animações de ataques com particles de cor
+- [ ] Implementar particle system baseado em tipo elementar
+- [ ] Adicionar efeitos de dano visual
+- [ ] Animar impacto de ataque no opponent
+- [ ] Adicionar feedback de crítico com efeito especial
+
+## Phase 41: Axolotl Stats Menu - Mobile Style (IN PROGRESS)
+- [ ] Criar menu mobile-style para visualizar stats
+- [ ] Exibir: Nível, XP, Ataques, Status, Traits
+- [ ] Design card-based com scroll horizontal
+- [ ] Integrar ao Dashboard ou criar página /stats
+- [ ] Adicionar animações de transição
+
+## Phase 42: Changelog Update & Final Checkpoint (IN PROGRESS)
+- [ ] Atualizar CHANGELOG.md com git history
+- [ ] Fazer diff com histórico de commits
+- [ ] Criar checkpoint final
+- [ ] Fazer zip da pasta .git
+- [ ] Upload para download

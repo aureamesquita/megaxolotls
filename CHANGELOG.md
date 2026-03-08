@@ -1,20 +1,78 @@
 # Megaxolotls - Changelog
 
+## [d8e4326] - 2026-03-08 - Elemental Types Display in Battle Arena
+
+### Added
+- **Elemental Type Display**
+  - Type badges for each Axolotl in battle (💧 Water, 🔥 Fire)
+  - Attack type display on move buttons
+  - `elementalType` field added to Move interface
+  - 6 elemental types with emoji and colors
+
+### Modified
+- `BattleArena.tsx`: Added type badges for player and enemy
+- `shared/types.ts`: Added `elementalType` field to Move interface
+- Move buttons now display attack type
+
+---
+
+## [bc174fa] - 2026-03-08 - Breeding Contract Integration
+
+### Added
+- **Breeding Smart Contract Functions**
+  - `breedAxolotls()` function in AxolotlNFT contract
+  - On-chain validation of breeding requirements
+  - 24-hour cooldown enforcement
+  - Offspring minting as new NFTs with inherited genes
+  - `OffspringBred` event emission
+
+- **Web3 Integration**
+  - `useBreedingContract` hook for contract interaction
+  - Mock transaction handling with loading states
+  - Breeding feedback visual (⏳ → 🔗 → ✅)
+
+- **Contract Functions**
+  - `canBreed(tokenId)`: Check if pet can breed
+  - `getBreedingCooldown(tokenId)`: Get cooldown remaining
+  - `getBreedableAxolotls()`: List breedable pets
+
+---
+
+## [629aaef] - 2026-03-07 - Type Matching System & Changelog
+
+### Added
+- **Type Matching System**
+  - 6 elemental types: Water, Fire, Grass, Electric, Ice, Normal
+  - Type effectiveness matrix (2x/0.5x/1x damage)
+  - STAB (Same Type Attack Bonus) system (1.5x multiplier)
+  - Dynamic damage calculation in battle simulator
+
+- **Changelog Page**
+  - Git commit history display
+  - Date and author information
+  - Filtering and sorting capabilities
+
+- **Documentation**
+  - `CHANGELOG.md` created with feature history
+  - `todo.md` updated with pending Solidity features
+
+---
+
 ## [d6d300e] - 2026-03-07 - Breeding System with Mendelian Genetics
 
 ### Added
-- **Breeding System**: Complete pet breeding with Mendelian genetics
-  - `useBreedingLogic` hook with trait inheritance algorithm
-  - Dominant/recessive trait system
+- **Breeding System**
+  - `useBreedingLogic` hook with trait inheritance
+  - Mendelian genetics (dominant/recessive traits)
   - Compatibility calculation (0-100%)
   - Offspring generation with inherited genes
-  - Breeding cooldown (24 hours)
-  - Offspring rarity calculation based on parents
-  
+  - 24-hour breeding cooldown
+  - Offspring rarity calculation
+
 - **Breed Screen** (`/breed`)
-  - Parent selection UI with 3 mock Axolotls
+  - Parent selection UI
   - Real-time compatibility display
-  - Trait visualization for both parents
+  - Trait visualization
   - Egg hatching animation
   - Offspring persistence in localStorage
   - 500 LIP token breeding cost
@@ -22,12 +80,8 @@
 - **Tests**
   - 12 new breeding system tests
   - Trait inheritance validation
-  - Compatibility calculation tests
+  - Compatibility tests
   - Cooldown system tests
-
-- **Integration**
-  - Breed button added to DemoHub
-  - `/breed` route added to App.tsx
 
 ---
 
@@ -42,7 +96,6 @@
   - Item details panel
   - Purchase animations with sparkle emoji
   - Check marks for purchased items
-  - Mock data with full descriptions
 
 - **Integration**
   - Shop button added to DemoHub
@@ -50,306 +103,252 @@
 
 ---
 
-## [89835a8] - 2026-03-07 - Smart Contracts & Team/Bag Screens
+## [89835a8] - 2026-03-07 - Teams, Bag & Smart Contracts
 
 ### Added
-- **3 Smart Contracts (Solidity)**
-  - `PetTeams.sol`: ERC-721 team management contract
-    - createTeam, addPetToTeam, removePetFromTeam
-    - Team stats and win rate tracking
-  
-  - `PetItemsDex.sol`: Item registry contract
-    - addItem, updateItem, deactivateItem
-    - Supply management
-  
-  - `PetItems.sol`: ERC-1155 semi-fungible items contract
-    - mintItem, burnItem, tradeItem
-    - Item balance tracking
+- **3 Smart Contracts**
+  - `PetTeams.sol` (ERC-721): Team management and composition
+  - `PetItemsDex.sol`: Registry of available items
+  - `PetItems.sol` (ERC-1155): Semi-fungible item contract
 
 - **Teams Screen** (`/teams`)
-  - Pet selection for team composition
-  - Max 3 pets per team
-  - Aggregated team stats display
-  - Rarity-based pet filtering
-  - Save team to contract button
-  - Mock data with 6 pets
+  - Team building UI with pet selection
+  - Stats aggregation
+  - Maximum 3 pets per team
+  - Save to contract functionality
 
 - **Bag Screen** (`/bag`)
-  - LIP token badge with balance
-  - PetItems grid with rarity colors
+  - LIP token badge with count
+  - PetItems grid with rarities
   - Item details panel
   - Use Item functionality
-  - Placeholder for PetItems Dex integration
+  - Space for PetItems Dex expansion
 
-- **Integration**
+- **Navigation**
   - Teams and Bag buttons added to DemoHub
-  - Routes `/teams` and `/bag` in App.tsx
+  - Routes added to App.tsx
 
 ---
 
-## [579f49d] - 2026-03-05 - Room Environments & Special Actions
+## [579f49d] - 2026-03-07 - Care Room Environments & Actions
 
 ### Added
-- **Room-Specific Environments**
-  - Dynamic backgrounds for each room
-  - Hall (purple), Bedroom (blue), Cozy (orange)
-  - Medsroom (green), Playroom (pink), Breedroom (yellow)
-  - Smooth color transitions
+- **Room Environments**
+  - 6 unique room backgrounds with transitions
+  - Hall (purple), Bedroom (blue), Cozy (orange), Medsroom (green), Playroom (pink), Breedroom (yellow)
 
 - **Room-Specific Actions**
-  - Explore (Hall): +happiness
-  - Rest (Bedroom): +energy
-  - Relax (Cozy): +happiness, +energy
-  - Heal (Medsroom): -hunger
-  - Play (Playroom): +happiness, -energy
-  - Breed (Breedroom): -hunger, +happiness
+  - Explore (Hall): +20 happiness
+  - Rest (Bedroom): +30 energy
+  - Relax (Cozy): +25 happiness
+  - Heal (Medsroom): +40 health
+  - Play (Playroom): +35 happiness, +15 XP
+  - Breed (Breedroom): Breeding preparation
 
-- **Action Feedback**
-  - Emoji indicators for each action
-  - Bonus display (e.g., "+5 Happiness")
-  - Disabled states based on pet stats
+- **Visual Feedback**
+  - Neon-cyan/green action buttons
+  - Emoji and bonus display
+  - Disabled states based on stats
 
 ---
 
-## [c9a7d71] - 2026-03-05 - Care Room Navigation
+## [c9a7d71] - 2026-03-07 - Care Room Selector
 
 ### Added
-- **Room Selector in Care**
-  - 6 rooms with unique emojis and colors
+- **Room Navigation**
+  - 6 rooms with emoji and colors
   - Left/right arrow navigation
   - Circular navigation (loops around)
-  - Animated room card display
-  - Room title in header
+  - Room card display with smooth transitions
+  - Header with room title and selector
 
 ---
 
-## [a12f2f3] - 2026-03-05 - Bug Fix: Nested Button Error
+## [a12f2f3] - 2026-03-05 - Nested Button Fix
 
 ### Fixed
-- Removed nested `<motion.button>` in Pets.tsx
-- Replaced with `<motion.div>` for proper HTML structure
+- Removed nested `<button>` elements in Pets.tsx
+- Changed `motion.button` to `motion.div` for pet cards
 - Maintained interactivity with onClick handlers
 
 ---
 
-## [2387da0] - 2026-03-04 - XP System, Pet Persistence & Bag Screen
+## [2387da0] - 2026-03-05 - XP System & Pet Persistence
 
 ### Added
-- **XP System with Smart Contract Integration**
-  - `useXPSystem` hook for XP management
-  - `useContractXP` hook for contract interaction (mock)
-  - Auto-evolution: Axolol (lvl 1) → Axolump (lvl 20) → Axoloot (lvl 50)
+- **XP System**
+  - `useXPSystem` hook for XP and level management
+  - `useContractXP` hook for Web3 interaction (mock)
+  - Automatic evolution: Axolol (lvl 1) → Axolump (lvl 20) → Axoloot (lvl 50)
   - XP persistence in localStorage
-  - Battle XP reward calculation
 
 - **Pet State Persistence**
-  - Hunger, happiness, energy stats saved in localStorage
-  - State loads on Care page open
-  - Persists between sessions
+  - Hunger, happiness, energy saved to localStorage
+  - State loaded on Care page open
+  - Maintains state between sessions
 
 - **Bag Screen**
-  - 5 item types with mock data
-  - Rarity-based colors
-  - Item details panel
-  - Use Item functionality
+  - Inventory of items with rarities
   - LIP token badge
-
-- **Smart Contract Updates**
-  - `addExperienceWithEvolution()` in AxolotlNFT
-  - Getter functions: getAxolotlMorphStage, getPetLevel, getPetExperience
+  - Item use functionality
+  - 5 mock item types
 
 ---
 
-## [7f9d422] - 2026-03-04 - Care & Demo Redesign
+## [7f9d422] - 2026-03-05 - App-Style Redesign
 
 ### Added
-- **Care Room Redesign (Tamagotchi-style)**
-  - Pet animation with bounce effect
-  - 4 action buttons (feed, play, sleep, pet)
-  - Stats display with progress bars
-  - Mood/happiness system with emoji feedback
-  - Disabled states based on stats
-  - Framer Motion animations
-
 - **DemoHub Redesign**
-  - App menu screen style (less marketing)
-  - 3 feature cards (Battle, Care, Pets)
-  - Neon theme with glow effects
-  - Smooth animations
-  - Back button to Home
+  - App menu screen style (less marketing, more app)
+  - 3 feature cards: Battle Arena, Care Rooms, Pet Gallery
+  - Mobile-first design
+
+- **Care Room Redesign**
+  - Tamagotchi-style interface
+  - Animated pet with mood system
+  - 4 action buttons: Feed, Play, Sleep, Pet
+  - Stats display with progress bars
+  - Feedback animations with emojis
 
 ---
 
-## [a59bb05] - 2026-03-04 - Web3 Token Balance Integration & Teams
+## [a59bb05] - 2026-03-05 - Web3 Token Balance Integration
 
 ### Added
-- **Web3 Token Balance Hooks**
+- **Web3 Hooks**
   - `useTokenBalance`: Generic token balance hook
-  - `useLIPBalance`: LIP token specific
-  - `useMAGAXBalance`: MEGAX token specific
-  - `useGameTokenBalances`: Combined hook
-  - Loading states and error handling
+  - `useLIPBalance`: LIP token balance
+  - `useMAGAXBalance`: MEGAX token balance
+  - `useGameTokenBalances`: Combined hook for both tokens
 
 - **Dashboard Integration**
-  - Token balance display in cards
-  - Real-time balance updates
-  - Loading indicators
-
-- **Teams Page** (`/teams`)
-  - Team composition UI
-  - Pet selection with stats
-  - Max 3 pets per team
-  - Save team button
-  - Stats aggregation
+  - Real-time token balance display
+  - Loading states during fetch
+  - Error handling for RPC failures
 
 ---
 
-## [48a9713] - 2026-03-03 - setState Error Fix
+## [48a9713] - 2026-03-04 - setState During Render Fix
 
 ### Fixed
-- Corrected setState during render in Dashboard.tsx
-- Moved redirect logic to useEffect
-- Proper dependency management
+- Moved redirect logic from render to useEffect in Dashboard
+- Resolved "Cannot update a component (Route) while rendering a different component (Dashboard)" error
+- Added proper dependency array to useEffect
 
 ---
 
-## [292022d] - 2026-03-03 - DemoHub Navigation
+## [292022d] - 2026-03-04 - DemoHub Navigation
 
 ### Added
 - **DemoHub Page** (`/demo-hub`)
-  - Menu screen for demo features
-  - 3 feature cards: Battle Arena, Care Rooms, Pet Gallery
-  - Neon design with animations
+  - Navigation hub for demo features
+  - Battle Arena, Care Rooms, Pet Gallery buttons
+  - Neon-themed design with Framer Motion animations
   - Back button to Home
-  - Framer Motion transitions
 
-- **Integration**
-  - "Try Demo" button on Home navigates to `/demo-hub`
-  - Routes for Battle, Care, Pets from DemoHub
+- **Home.tsx Update**
+  - "Try Demo" button now navigates to `/demo-hub`
+  - Battle and Care buttons removed from splash screen
 
 ---
 
-## [c4471bf] - 2026-03-03 - Initial Battle & Care Buttons
+## [c4471bf] - 2026-03-04 - Battle & Care Buttons
 
 ### Added
-- Battle and Care buttons on Home landing page
-- Navigation to demo features
-- Initial app structure
+- Battle and Care buttons added to Home landing page
+- Animated buttons with Framer Motion
+- Neon color scheme integration
 
 ---
 
-## Project Structure
+## [810e58a] - 2026-03-04 - Care Rooms System
 
-### Frontend
-- **React 19** with TypeScript
-- **Tailwind CSS 4** for styling
-- **Framer Motion** for animations
-- **Wouter** for routing
-- **shadcn/ui** components
+### Added
+- **Care Rooms** (`/care`)
+  - 6 rooms: Hall, Bedroom, Cozy, Medsroom, Playroom, Breedroom
+  - Room selector with navigation
+  - Care actions: Feed, Play, Sleep, Pet
+  - Room-specific effects on stats
+  - 24-hour cooldown per action
+  - Mock data with Axolotl stats
 
-### Backend
-- **Express 4** server
-- **tRPC 11** for type-safe APIs
-- **Drizzle ORM** for database
-- **Manus OAuth** for authentication
-
-### Smart Contracts (Solidity)
-- **AxolotlNFT.sol**: Main NFT contract with XP system
-- **PetTeams.sol**: Team management (ERC-721)
-- **PetItemsDex.sol**: Item registry
-- **PetItems.sol**: Item management (ERC-1155)
-
-### Data Storage
-- **localStorage**: Pet state, XP, offspring, items
-- **Database**: User data, authentication
-- **Blockchain**: NFTs, teams, items (future)
+- **Tests**
+  - 11 new Care Rooms tests
+  - Action validation tests
+  - Cooldown system tests
 
 ---
 
-## Key Features Implemented
+## [fe8e557] - 2026-03-04 - Pets Gallery Page
 
-✅ **Game Mechanics**
-- Battle simulator with type matching and STAB
-- Pet care with 6 rooms and room-specific actions
-- XP system with auto-evolution
-- Breeding system with Mendelian genetics
-- Item shop with LIP token purchases
+### Added
+- **Pets Gallery** (`/pets`)
+  - Display of owned Axolotls
+  - Filters: rarity, species
+  - Sorting: level, rarity, newest
+  - Pet details modal
+  - Battle button for each pet
+  - Mock data with 4 Axolotls
 
-✅ **UI/UX**
-- App-style interface (Tamagotchi-inspired)
-- Neon cyberpunk theme
-- Smooth animations and transitions
-- Mobile-first responsive design
-- Real-time feedback and animations
-
-✅ **Web3 Integration**
-- Token balance hooks (LIP, MEGAX)
-- Smart contracts for teams, items, pets
-- Mock contract interactions
-- localStorage persistence
-
-✅ **Testing**
-- 72 unit tests (Vitest)
-- Battle logic tests
-- Breeding system tests
-- Pet care tests
-- Web3 features tests
+- **Tests**
+  - 8 new Pets page tests
 
 ---
 
-## Features in Demo/localStorage - Pending Solidity Implementation
+## [58ed72c] - 2026-03-03 - Changelog & Settings
 
-⚠️ **Breeding System**
-- Currently in localStorage only
-- Needs: mintItem, cooldown validation, event emission
+### Added
+- **Changelog Page** (`/changelog`)
+  - Git commit history display
+  - Mock data with 20 commits
+  - Date and author information
 
-⚠️ **PetItems System**
-- Demo items in localStorage
-- Needs: mintItem, burnItem, useItem effects
-
-⚠️ **Shop System**
-- Mock purchases in localStorage
-- Needs: buyItem, LIP transfer, item minting
-
-⚠️ **Battle XP System**
-- XP stored in localStorage
-- Needs: on-chain XP tracking, evolution validation
-
-⚠️ **Teams System**
-- Teams in localStorage
-- Needs: on-chain team storage, battle recording
-
-⚠️ **Pet Care State**
-- Stats in localStorage
-- Needs: on-chain stat storage, decay mechanics
-
-⚠️ **Marketplace**
-- Not yet implemented
-- Needs: listing, auction, offer system
+- **Settings Page** (`/settings`)
+  - Sound toggle (on/off)
+  - Music volume slider
+  - SFX volume slider
+  - Dialog frame selector (4 styles)
+  - Logout button
+  - Account info display
+  - localStorage persistence
 
 ---
 
-## Next Steps
+## [ec5b3b8] - 2026-03-03 - Draw Condition & Pet Images
 
-1. **Deploy Smart Contracts** to MegaETH testnet
-2. **Integrate Web3 Hooks** for real contract interactions
-3. **Implement Stadium** for matchmaking and leaderboards
-4. **Add Marketplace** for peer-to-peer trading
-5. **Implement Breeding Contracts** for on-chain offspring
-6. **Add Battle Rewards** (XP, LIP tokens) on-chain
-7. **Create Governance** for community decisions
+### Fixed
+- Draw condition now shows 🤝 DRAW when both HP reach 0
+- Added Axolotl images in battle arena
+- Player and enemy pet images from CDN
 
 ---
 
-## Development Notes
+## [461de19] - 2026-03-03 - Battle System
 
-- All localStorage data is mock data for demonstration
-- Smart contracts are written but not yet deployed
-- Web3 integration uses mock functions
-- Type system is fully typed with TypeScript
-- All features are tested with Vitest
-- UI is responsive and mobile-first
+### Added
+- **Battle Arena** (`/battle-demo`)
+  - Turn-based combat system
+  - HP and Energy bars with animations
+  - AI opponent logic
+  - 4 move selection buttons
+  - Battle log with action history
+  - Victory/Defeat/Draw conditions
+  - New Battle button to restart
+
+- **Tests**
+  - 41 battle system tests
 
 ---
 
-Generated: 2026-03-07
+## Project Start - 2026-03-01
+
+### Initial Setup
+- Web3 infrastructure with Viem and Web3Modal
+- MegaETH network configuration (chainID 4326)
+- Wallet connection with MetaMask and WalletConnect
+- Onboarding page with network setup
+- NFT integration for Axolotl display
+- Splash screen with cyberpunk/neon design
+- First-use flow with tutorial
+- Dashboard with token balance display
+- Framer Motion animations throughout
