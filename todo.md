@@ -458,3 +458,17 @@
 - [ ] Adicionar sistema de organização (sorting, filtering)
 - [ ] Implementar troca de itens entre players
 - [ ] Emitir eventos de inventory changes
+
+
+## Phase 37: Breeding Contract Integration (COMPLETED)
+- [x] Adicionar função breedAxolotls ao contrato AxolotlNFT
+- [x] Implementar validação de compatibilidade no contrato
+- [x] Mintar offspring como novo NFT com genes herdados
+- [x] Aplicar cooldown de reprodução on-chain (24 horas)
+- [x] Emitir evento OffspringBred com offspring data
+- [x] Criar hook useBreedingContract para interagir via Viem (mock)
+- [x] Integrar Web3 breeding no Breed Screen
+- [x] Implementar mock de transação com loading state
+- [x] Adicionar feedback visual de sucesso/erro
+- [x] Funções: canBreed, getBreedingCooldown, getBreedableAxolotls
+- [x] 72 testes passando

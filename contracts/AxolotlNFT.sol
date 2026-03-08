@@ -58,6 +58,12 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
     // Mapping from tokenId to metadata
     mapping(uint256 => PetMetadata) public petMetadata;
 
+    // Mapping for breeding cooldown (tokenId => last breeding timestamp)
+    mapping(uint256 => uint256) public lastBreedingTime;
+    
+    // Breeding cooldown duration (24 hours)
+    uint256 public constant BREEDING_COOLDOWN = 24 hours;
+
     // Events
     event PetMinted(
         uint256 indexed tokenId,
@@ -72,6 +78,13 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         uint256 indexed tokenId,
         MorphStage oldStage,
         MorphStage newStage
+    );
+
+    event OffspringBred(
+        uint256 indexed parentId1,
+        uint256 indexed parentId2,
+        uint256 indexed offspringId,
+        address breeder
     );
 
     constructor() ERC721("MegaxolotlsNFT", "AXOLOTL") {}
@@ -312,6 +325,106 @@ contract AxolotlNFT is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
+    }
+
+    /**
+     * @dev Breed two Axolotls to create offspring
+     * @param parentId1 Token ID of first parent
+     * @param parentId2 Token ID of second parent
+     * @param offspringName Name for the offspring
+     * @param offspringColor Color for the offspring
+     * @return offspringId Token ID of the new offspring
+     */
+    function breedAxolotls(
+        uint256 parentId1,
+        uint256 parentId2,
+        string memory offspringName,
+        AxolotlColor offspringColor
+    ) public returns (uint256 offspringId) {
+        // Validate parents exist
+        require(_exists(parentId1), "Parent 1 does not exist");
+        require(_exists(parentId2), "Parent 2 does not exist");
+        
+        // Validate parents are axolotls
+        require(
+            petMetadata[parentId1].species == PetSpecies.AXOLOTL,
+            "Parent 1 must be an Axolotl"
+        );
+        require(
+            petMetadata[parentId2].species == PetSpecies.AXOLOTL,
+            "Parent 2 must be an Axolotl"
+        );
+        
+        // Validate caller owns both parents
+        require(
+            ownerOf(parentId1) == msg.sender,
+            "You must own Parent 1"
+        );
+        require(
+            ownerOf(parentId2) == msg.sender,
+            "You must own Parent 2"
+        );
+        
+        // Check breeding cooldown
+        require(
+            block.timestamp >= lastBreedingTime[parentId1] + BREEDING_COOLDOWN,
+            "Parent 1 is on breeding cooldown"
+        );
+        require(
+            block.timestamp >= lastBreedingTime[parentId2] + BREEDING_COOLDOWN,
+            "Parent 2 is on breeding cooldown"
+        );
+        
+        // Mint offspring
+        offspringId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
+        
+        _safeMint(msg.sender, offspringId);
+        
+        // Set offspring metadata (inherits from parents)
+        petMetadata[offspringId] = PetMetadata({
+            name: offspringName,
+            species: PetSpecies.AXOLOTL,
+            level: 1,
+            experience: 0,
+            createdAt: block.timestamp,
+            creator: msg.sender,
+            axolotlColor: offspringColor,
+            morphStage: MorphStage.AXOLOL
+        });
+        
+        // Set breeding cooldown for parents
+        lastBreedingTime[parentId1] = block.timestamp;
+        lastBreedingTime[parentId2] = block.timestamp;
+        
+        // Emit breeding event
+        emit OffspringBred(parentId1, parentId2, offspringId, msg.sender);
+        
+        return offspringId;
+    }
+
+    /**
+     * @dev Check if an Axolotl can breed (not on cooldown)
+     */
+    function canBreed(uint256 tokenId) public view returns (bool) {
+        require(_exists(tokenId), "Token does not exist");
+        return block.timestamp >= lastBreedingTime[tokenId] + BREEDING_COOLDOWN;
+    }
+
+    /**
+     * @dev Get remaining breeding cooldown time in seconds
+     */
+    function getBreedingCooldown(uint256 tokenId)
+        public
+        view
+        returns (uint256)
+    {
+        require(_exists(tokenId), "Token does not exist");
+        uint256 cooldownEnd = lastBreedingTime[tokenId] + BREEDING_COOLDOWN;
+        if (block.timestamp >= cooldownEnd) {
+            return 0;
+        }
+        return cooldownEnd - block.timestamp;
     }
 
     /**
