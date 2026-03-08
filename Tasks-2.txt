@@ -1,0 +1,5 @@
+- separate the Ethereum login button from the splashscreen, to a first-use screen! (detect first-use via browser local storage)
+- add a sample first-use tutorial screen (after user is connected for the first time)
+- after logged-in, show a screen with the address, network and 2 buttons near each other with a icon on the left of each: LIP token and MEGAXS token: both icon of each, count and token name ; leave structure for later each button getting data read from their respective token contract for retrieving the connected user's balances
+
+- Gamlr Onchain: every ETH address will have its own Contract with AccountData: hours played on each game, first-login done on a game or not(never played yet)

@@ -1,0 +1,35 @@
+10/02/2026 ~02:19:
+- the connect wallet and try demo buttons are transparent and the text #000, overlapping with the page design
+- cant return to the initial page after clicking the demo!
+- battle demo: after selecting a move, click attack to apply ; random 'AI' on opposite player to choose an attack too ; HP bar for both, and Energy too
+02:23
+
+tb add o atk "Bulletbol", ennergy cost 2 e DMG50, e que vai exibir o arquivo 1769099991673.jpg como background no zoom HTML
+02:26
+02:27: physical, description: "Small, angry, and faster than sound. It doesn't stop until it hits something."
+
+--
+
+- leave a code for ReactNatively generating a local Ethereum address for onboarding new users (reference this on to-do)
+- make the changelog screen, with all of .git logs from since the begin of the repo
+- Settings page: sound and music volume and activation/deactivate ; and change dialogs' frame
+
+----
+
+- Pets screen
+- Teams screen and Contract-level teambuilding (Megaxolotl PetTeams)
+- Bag screen (LIP), leave space for a Megaxolotl PetItems Dex ; Megaxolotl PetItems
+- after clicking "Care", go to a screen to change current room: Hall, Bedroom, Cozy, Medsroom, Playroom[, Breedroom]
+- Breed screen
+- Shop screen (later will be able to buy axolotls)
+- mv homescreen's "Breed" button to a Care screen room
+
+----
+
+- NFT'd dialog frames! (incl on the shop)
+- Stadium and battles' Ranking and record battles' replay
+
+----
+for someday:
+
+- Gamlr Onchain: every ETH address will have its own Contract with AccountData: hours played on each game, first-login done on a game or not(never played yet) (then Megaxolotls will do a first-time migration of hours played from localstorage to Contract, and wait existing addresses that didnt do this yet)

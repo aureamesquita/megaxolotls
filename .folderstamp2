@@ -1,0 +1,187 @@
+This folder: /home/aurea/Downloads/megaxolotls
+
+folderstamp version: r5
+Method: Non-recursive
+Current Git Branch: main
+First Git Remote: origin - URL: s3://vida-prod-gitrepo/webdev-git/310519663121114243/TyVbiLgBxaSF7XbjjqwtFY
+
+  Arquivo: ./AeGQcsDhIMjHdDKU.zip
+    Tamanho: 602317    	Blocos: 1184       bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 6780910     Ligações: 1
+Acesso: (0664/-rw-rw-r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:58:05.247140521 -0300
+Modificação: 2026-02-09 21:58:00.663078999 -0300
+  Alteração: 2026-02-09 21:59:11.484004254 -0300
+    Criação: 2026-02-09 21:58:00.329074507 -0300
+IPFS hash: QmRpHQRHaG5utdQoHcXAZn3awkUJ7kgKgPTZLhFTumHNSC
+------------------------------
+  Arquivo: ./client
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231683     Ligações: 4
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.251064682 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.275196726 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./components.json
+    Tamanho: 388       	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231788     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.028125016 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.289357974 -0300
+    Criação: 2026-02-09 21:59:05.289245131 -0300
+IPFS hash: QmZoxVVz8LEEszifEaTVAbGhHf2XZAayJAsv66rgPT8isF
+------------------------------
+  Arquivo: ./contracts
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231789     Ligações: 2
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.251064682 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.289357974 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./drizzle
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231792     Ligações: 4
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.251064682 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.289849923 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./drizzle.config.ts
+    Tamanho: 353       	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231791     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.028125016 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.289849923 -0300
+    Criação: 2026-02-09 21:59:05.289711270 -0300
+IPFS hash: QmcSRPCDAz49RBHn8ekE4L4NoauT8BtKFS19vWu5AWZXr9
+------------------------------
+  Arquivo: ./mnus-AI-2.txt
+    Tamanho: 221       	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7223244     Ligações: 1
+Acesso: (0664/-rw-rw-r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-01-22 18:51:52.204894838 -0300
+Modificação: 2026-01-22 16:40:52.023938999 -0300
+  Alteração: 2026-01-22 16:40:52.028939131 -0300
+    Criação: 2026-01-22 16:40:52.022938973 -0300
+IPFS hash: QmRpzkkWdPB8GMN3ygynLMW8oV7ACw8h17HuTkfeqmG1ME
+------------------------------
+  Arquivo: ./mnus-AI.txt
+    Tamanho: 88        	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7223240     Ligações: 1
+Acesso: (0664/-rw-rw-r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-01-22 16:40:22.604165705 -0300
+Modificação: 2026-01-22 16:38:51.260932474 -0300
+  Alteração: 2026-01-22 16:38:51.264773408 -0300
+    Criação: 2026-01-22 16:38:51.259773278 -0300
+IPFS hash: QmenSEk63n4bF7j4AC3GAJMJhqqMtAMGFk6wPRqzLtwdtj
+------------------------------
+  Arquivo: ./package.json
+    Tamanho: 4023      	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231801     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.021124928 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.291051276 -0300
+    Criação: 2026-02-09 21:59:05.290907943 -0300
+IPFS hash: QmbhWsuYUopiuPvtfQ4pAip592vHm9Sv7vc25KTKQfQxcQ
+------------------------------
+  Arquivo: ./patches
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231802     Ligações: 2
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.250064669 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.291051276 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./pnpm-lock.yaml
+    Tamanho: 395717    	Blocos: 776        bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231804     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.028125016 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.293891599 -0300
+    Criação: 2026-02-09 21:59:05.291279870 -0300
+IPFS hash: QmRkbQZnB98rQNypsJ775u9Am2NZHKEqAp98hMKTVTnkP5
+------------------------------
+  Arquivo: ./RESEARCH.md
+    Tamanho: 4176      	Blocos: 16         bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231682     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.025124978 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.275196726 -0300
+    Criação: 2026-02-09 21:59:05.275056393 -0300
+IPFS hash: QmXYmakvt8cEReAcidLvnCJvLr5VHmVCkNcrmPYuPJnTRv
+------------------------------
+  Arquivo: ./server
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231805     Ligações: 3
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.250064669 -0300
+Modificação: 2026-02-09 21:18:08.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.293891599 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./shared
+    Tamanho: 4096      	Blocos: 8          bloco de E/S: 4096   diretório
+Dispositivo: 8,17	Inode: 7231832     Ligações: 3
+Acesso: (0755/drwxr-xr-x)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:16.250064669 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.299151499 -0300
+    Criação: 2026-02-09 21:59:05.297251783 -0300
+IPFS hash: 
+------------------------------
+  Arquivo: ./todo.md
+    Tamanho: 4439      	Blocos: 16         bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231838     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.030125041 -0300
+Modificação: 2026-02-09 21:18:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.297990027 -0300
+    Criação: 2026-02-09 21:59:05.297847274 -0300
+IPFS hash: QmaYuvDNvqKXn41BvP2ByMsXUG62JAeZMVogmfZdaDo3a8
+------------------------------
+  Arquivo: ./tsconfig.json
+    Tamanho: 657       	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231839     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.030125041 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.298088349 -0300
+    Criação: 2026-02-09 21:59:05.297990027 -0300
+IPFS hash: QmYnUVytuq6zdzzw8BoL8dbHk1p2NBXrKCoJcnEJ8AWkWk
+------------------------------
+  Arquivo: ./vite.config.ts
+    Tamanho: 5765      	Blocos: 16         bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231840     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.030125041 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.298225841 -0300
+    Criação: 2026-02-09 21:59:05.298088349 -0300
+IPFS hash: QmWrxQCjuCwVEX53tuZSLoyrNwTK7cUPZT9h4ywGy8XJ54
+------------------------------
+  Arquivo: ./vitest.config.ts
+    Tamanho: 499       	Blocos: 8          bloco de E/S: 4096   arquivo comum
+Dispositivo: 8,17	Inode: 7231841     Ligações: 1
+Acesso: (0644/-rw-r--r--)  Uid: ( 1000/   aurea)   Gid: ( 1000/   aurea)
+Acesso: 2026-02-09 21:59:21.030125041 -0300
+Modificação: 2026-02-05 15:01:38.000000000 -0300
+  Alteração: 2026-02-09 21:59:05.298320723 -0300
+    Criação: 2026-02-09 21:59:05.298225841 -0300
+IPFS hash: QmWYeiU5Png6o7TMjqtiQJ3BGYh6tGFWecvmUFsGCuMS2C
+------------------------------

@@ -1,0 +1,2 @@
+- separate the Ethereum login button from the splashscreen, to a first-use screen!
+- after logged-in, show a screen with the address, network and 2 buttons near each other with a icon on the left of each: LIP token and MEGAXS token: both icon of each, count and token name ; leave structure for later each button getting data read from their respective token contract for retrieving the connected user's balances

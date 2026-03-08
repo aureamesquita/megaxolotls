@@ -1,0 +1,34 @@
+credits remaining on 08/03: 300 (1/6 uses left)
+
+'/home/aurea/Downloads/megaxolotls/megaxolotls' contains the most up-to-date files and .git, so the dupliced files in the upper foldrr, icluding the .git, are safe to remove as they werent changed and .git had no local commits!
+
+----
+
+-✅️🔵️ Pets screen (with its button on the home/landing screen)
+-✅️ after clicking "Care", go to a screen to change current room: Hall, Bedroom, Cozy, Medsroom, Playroom[, Breedroom]
+-✅️🔵️ Teams screen and Contract-level teambuilding (Megaxolotl PetTeams contract in .sol you should prototype) (then add the "Teams" button on the page that have the 'Battle', 'Care' and 'Pets' buttons)
+-✅️🔵️ Bag screen (LIP token with a count badge, as first sample item), leave space for a Megaxolotl PetItems Dex ; Megaxolotl PetItems (so 2 .sol smart-contracts: the PetItems Dex as a updateable book of existing items, and the PetItems semi-fungible contract will depend on that Dex for pushing item data from)
+"Resumo:
+✅ 3 contratos Solidity criados e documentados
+✅ Teams Screen com team building UI e validações
+✅ Bag Screen com LIP token badge e PetItems grid
+✅ DemoHub atualizado com Teams e Bag buttons
+"
+-✅️🔵️ Shop screen (later will be able to buy axolotls)
+-🔵️ Breed screen
+- get latest git hist as of 07/03/2026
+-? mv homescreen's "Breed" button to a Care screen room
+
+https://www.google.com/search?sca_esv=d6eb6bac57f34326&sxsrf=ANbL-n4ZIiZzi-FIMbmosCWkZpIld1vv2A:1771310033911&udm=2&fbs=ADc_l-acAb_3MMOAUx0zmbUpgBqRiigBgL2I_pgQa-94zvB054Dys3s2x_Qm_GJcU2DlSXieuCxH018RGsE0xvw2_HKhudJGWgXPA5hzXkv3QZ3bycnrH81YaDJc-ckKqEMoXWJXeBypyONrUrKEm3DJMjWageVO6VuKPIkd09xJdUXmYGQLeFFw-OwM8agjQkdhWI9sJDUV7XdHQmUFaKLrJSmUVAgQKg&q=axolotl+drawings&sa=X&ved=2ahUKEwjX1-6K9N-SAxXgGrkGHZx9D28QtKgLegQIDhAB&biw=1366&bih=589#sv=CAMSVhoyKhBlLVZvdG55SlI1Q3Z1dXdNMg5Wb3RueUpSNUN2dXV3TToOekVNVFdMV0hnZlRxYU0gBCocCgZtb3NhaWMSEGUtVm90bnlKUjVDdnV1d00YADABGAcguevX-QgwAkoIEAIYAiACKAI
+
+[- leave a code for ReactNatively generating a local Ethereum address for onboarding new users (reference this on to-do)]
+
+----
+
+- NFT'd dialog frames! (incl on the shop)
+- Stadium and battles' Ranking and record battles' replay
+
+----
+for someday:
+
+- Gamlr Onchain: every ETH address will have its own Contract with AccountData: hours played on each game, first-login done on a game or not(never played yet) (then Megaxolotls will do a first-time migration of hours played from localstorage to Contract, and wait existing addresses that didnt do this yet)

@@ -1,0 +1,29 @@
+credits remaining on 18/02: 900 (3/6 uses left)
+
+17/02/2026 03:50: when the current battler has no move left, enable the 5th move: Struggle
+
+- leave a code for ReactNatively generating a local Ethereum address for onboarding new users (reference this on to-do)
+- make the changelog screen, with all of .git logs from since the begin of the repo
+- Settings page: sound and music volume and activation/deactivate ; and change dialogs' frame
+
+----
+
+- Pets screen
+- Teams screen and Contract-level teambuilding (Megaxolotl PetTeams)
+- Bag screen (LIP), leave space for a Megaxolotl PetItems Dex ; Megaxolotl PetItems
+- after clicking "Care", go to a screen to change current room: Hall, Bedroom, Cozy, Medsroom, Playroom[, Breedroom]
+- Breed screen
+- Shop screen (later will be able to buy axolotls)
+- mv homescreen's "Breed" button to a Care screen room
+
+https://www.google.com/search?sca_esv=d6eb6bac57f34326&sxsrf=ANbL-n4ZIiZzi-FIMbmosCWkZpIld1vv2A:1771310033911&udm=2&fbs=ADc_l-acAb_3MMOAUx0zmbUpgBqRiigBgL2I_pgQa-94zvB054Dys3s2x_Qm_GJcU2DlSXieuCxH018RGsE0xvw2_HKhudJGWgXPA5hzXkv3QZ3bycnrH81YaDJc-ckKqEMoXWJXeBypyONrUrKEm3DJMjWageVO6VuKPIkd09xJdUXmYGQLeFFw-OwM8agjQkdhWI9sJDUV7XdHQmUFaKLrJSmUVAgQKg&q=axolotl+drawings&sa=X&ved=2ahUKEwjX1-6K9N-SAxXgGrkGHZx9D28QtKgLegQIDhAB&biw=1366&bih=589#sv=CAMSVhoyKhBlLVZvdG55SlI1Q3Z1dXdNMg5Wb3RueUpSNUN2dXV3TToOekVNVFdMV0hnZlRxYU0gBCocCgZtb3NhaWMSEGUtVm90bnlKUjVDdnV1d00YADABGAcguevX-QgwAkoIEAIYAiACKAI
+
+----
+
+- NFT'd dialog frames! (incl on the shop)
+- Stadium and battles' Ranking and record battles' replay
+
+----
+for someday:
+
+- Gamlr Onchain: every ETH address will have its own Contract with AccountData: hours played on each game, first-login done on a game or not(never played yet) (then Megaxolotls will do a first-time migration of hours played from localstorage to Contract, and wait existing addresses that didnt do this yet)

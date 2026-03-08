@@ -1,0 +1,5 @@
+MegaETH logo
+MegaETH
+ChainID	Currency
+4326 (0x10e6)	ETH
+https://mainnet.megaeth.com/rpc
