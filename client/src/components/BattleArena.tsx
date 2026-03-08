@@ -38,7 +38,10 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
           {/* Player */}
           <div>
             <div className="mb-4">
-              <h3 className="text-neon-cyan font-bold text-lg mb-2">Your Axolotl</h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-neon-cyan font-bold text-lg">Your Axolotl</h3>
+                <span className="px-3 py-1 rounded-full bg-blue-500/30 border border-blue-400 text-blue-300 text-xs font-bold">💧 Water</span>
+              </div>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
               {/* Player Axolotl Image */}
               <div className="mt-3 rounded overflow-hidden border border-neon-cyan/30 h-40 bg-black/60">
@@ -90,7 +93,10 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
           {/* Enemy */}
           <div>
             <div className="mb-4">
-              <h3 className="text-neon-pink font-bold text-lg mb-2">Enemy Axolotl</h3>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-neon-pink font-bold text-lg">Enemy Axolotl</h3>
+                <span className="px-3 py-1 rounded-full bg-red-500/30 border border-red-400 text-red-300 text-xs font-bold">🔥 Fire</span>
+              </div>
               <p className="text-gray-400 text-sm">Axolol (Level 5)</p>
               {/* Enemy Axolotl Image */}
               <div className="mt-3 rounded overflow-hidden border border-neon-pink/30 h-40 bg-black/60">
@@ -170,6 +176,15 @@ export const BattleArena: React.FC<BattleArenaProps> = ({ availableMoves, onBatt
                   whileTap={{ scale: 0.95 }}
                 >
                   <div className="text-sm font-bold text-neon-cyan mb-1">{move.name}</div>
+                  <div className="text-xs text-gray-300 mb-1">
+                    {move.elementalType === 'water' && '💧 Water'}
+                    {move.elementalType === 'fire' && '🔥 Fire'}
+                    {move.elementalType === 'grass' && '🌿 Grass'}
+                    {move.elementalType === 'electric' && '⚡ Electric'}
+                    {move.elementalType === 'ice' && '❄️ Ice'}
+                    {move.elementalType === 'normal' && '⭕ Normal'}
+                    {!move.elementalType && '⭕ Normal'}
+                  </div>
                   <div className="text-xs text-gray-400">DMG: {move.damage}</div>
                   <div className="text-xs text-neon-pink">Cost: {move.energyCost}</div>
                 </motion.button>

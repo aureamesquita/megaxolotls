@@ -54,6 +54,7 @@ export interface Move {
   id: string;
   name: string;
   type: 'physical' | 'special' | 'status';
+  elementalType?: 'water' | 'fire' | 'grass' | 'electric' | 'ice' | 'normal'; // Elemental type for type matching
   power: number;
   accuracy: number;
   pp: number; // Power Points
