@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:756e31ad510f6ea47bfa9a5576ed70b21d9ce70de3aec34e5eafdc8823ad97cf
-size 855
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="256" cy="256" r="228" fill="white" fill-opacity="0.96" stroke="#FFC0DD" stroke-width="12"/>
+  <ellipse cx="256" cy="275" rx="132" ry="110" fill="#FFABD0" stroke="#FF5AA5" stroke-width="6"/>
+  <path d="M136 252L84 214L101 278L136 272" fill="#FF76B8"/>
+  <path d="M376 252L428 214L411 278L376 272" fill="#FF76B8"/>
+  <circle cx="210" cy="252" r="26" fill="#45365B"/>
+  <circle cx="302" cy="252" r="26" fill="#45365B"/>
+  <path d="M236 318C247 330 264 334 278 318" stroke="#B13E72" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="174" cy="178" r="11" stroke="#8ADFFF" stroke-width="4"/>
+  <circle cx="338" cy="162" r="10" stroke="#8ADFFF" stroke-width="4"/>
+  <circle cx="360" cy="344" r="13" stroke="#8ADFFF" stroke-width="4"/>
+</svg>

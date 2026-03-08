@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4d8f3632b0f400d770efb06381611aae0479ea957ce0def8aa218de85a90600b
-size 1684
+<svg width="1024" height="768" viewBox="0 0 1024 768" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1024" y2="768">
+      <stop offset="0" stop-color="#1a1533"/>
+      <stop offset="1" stop-color="#321247"/>
+    </linearGradient>
+    <linearGradient id="body" x1="320" y1="220" x2="760" y2="620">
+      <stop offset="0" stop-color="#FFBAD9"/>
+      <stop offset="1" stop-color="#FF8BC0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="768" fill="url(#bg)"/>
+  <ellipse cx="520" cy="430" rx="380" ry="250" fill="#7DE8FF" fill-opacity="0.2"/>
+  <ellipse cx="520" cy="430" rx="330" ry="215" fill="#A2F2FF" fill-opacity="0.18"/>
+  <ellipse cx="500" cy="420" rx="240" ry="190" fill="url(#body)" stroke="#FF5AA5" stroke-width="8"/>
+  <path d="M276 350L185 310L210 380L276 390" fill="#FF76B8"/>
+  <path d="M276 425L170 430L212 485L276 458" fill="#FF76B8"/>
+  <path d="M724 350L815 310L790 380L724 390" fill="#FF76B8"/>
+  <path d="M724 425L830 430L788 485L724 458" fill="#FF76B8"/>
+  <circle cx="420" cy="390" r="56" fill="white" fill-opacity="0.9"/>
+  <circle cx="600" cy="390" r="56" fill="white" fill-opacity="0.9"/>
+  <circle cx="420" cy="390" r="22" fill="#3C2B4E"/>
+  <circle cx="600" cy="390" r="22" fill="#3C2B4E"/>
+  <path d="M468 492C496 520 530 520 556 492" stroke="#B13E72" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="172" cy="196" r="24" stroke="#DDFBFF" stroke-width="5"/>
+  <circle cx="850" cy="180" r="20" stroke="#DDFBFF" stroke-width="5"/>
+  <circle cx="858" cy="550" r="28" stroke="#DDFBFF" stroke-width="5"/>
+  <circle cx="204" cy="548" r="18" stroke="#DDFBFF" stroke-width="5"/>
+</svg>
