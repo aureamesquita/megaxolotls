@@ -509,3 +509,6 @@
 - [ ] Criar checkpoint final
 - [ ] Fazer zip da pasta .git
 - [ ] Upload para download
+
+## Phase 22: Stadium Matchmaking & Ranking (NEXT)
+- [ ] Crie a tela do estádio com matchmaking, sistema de rating ELO e um leaderboard para as batalhas.
