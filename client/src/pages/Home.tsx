@@ -2,8 +2,21 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useAccount } from 'wagmi';
 import { useLocation } from 'wouter';
-import { Sparkles, Wallet, Heart } from 'lucide-react';
+import { Sparkles, Wallet, Heart, ExternalLink } from 'lucide-react';
 import { useWallet } from '@/hooks/useWallet';
+
+const getMetaMaskInstallLink = () => {
+  if (typeof window === 'undefined') {
+    return 'https://metamask.io/download/';
+  }
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (isMobile) {
+    return `https://metamask.app.link/dapp/${window.location.host}`;
+  }
+
+  return 'https://metamask.io/download/';
+};
 
 export default function Home() {
   const { isConnected } = useAccount();
@@ -21,6 +34,15 @@ export default function Home() {
       }
     }
   }, [isConnected, setLocation]);
+
+  const handleConnectWallet = () => {
+    if (typeof window !== 'undefined' && (window as Window & { ethereum?: unknown }).ethereum) {
+      connectMetaMask();
+      return;
+    }
+
+    window.open(getMetaMaskInstallLink(), '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-[#23183d] via-[#2f1f50] to-[#1d1533] p-4 sm:p-8">
@@ -62,7 +84,7 @@ export default function Home() {
 
         <div className="mt-auto space-y-3 pt-6">
           <motion.button
-            onClick={connectMetaMask}
+            onClick={handleConnectWallet}
             disabled={isConnecting}
             className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-pink-500 to-fuchsia-400 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/30 transition hover:brightness-105 disabled:opacity-70"
             whileTap={{ scale: 0.98 }}
@@ -70,6 +92,11 @@ export default function Home() {
             <Wallet className="h-4 w-4" />
             {isConnecting ? 'Connecting wallet...' : 'Connect Wallet'}
           </motion.button>
+
+          <p className="flex items-center justify-center gap-1 text-center text-xs text-pink-100/65">
+            No wallet extension detected? We will open MetaMask install/deeplink.
+            <ExternalLink className="h-3 w-3" />
+          </p>
 
           <motion.button
             onClick={() => setLocation('/demo-hub')}
@@ -80,7 +107,7 @@ export default function Home() {
             Enter Cuteness Demo
           </motion.button>
 
-          <p className="text-center text-xs text-pink-100/70">Powered by MegaETH • Built for pocket-sized play.</p>
+          <p className="text-center text-xs text-pink-100/70">WalletConnect API keys are optional. MetaMask flow works without them.</p>
         </div>
       </div>
     </div>

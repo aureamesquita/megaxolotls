@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "MegaXolotls",
+    "slug": "megaxolotls",
+    "version": "1.0.0",
+    "orientation": "default",
+    "scheme": "megaxolotls",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#1f1536"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
